@@ -1,0 +1,102 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+@font-face {
+    font-family: 'RobotoMono';
+    src: url('../assets/fonts/RobotoMono-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+    background: white;
+    font-family: 'RobotoMono', sans-serif;
+  }
+
+img {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+
+  .site-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1rem;
+    background: white;
+    border-bottom: 1px solid black;
+  }
+  
+  .logo img {
+    width: 60px;
+    height: auto;
+  }
+  
+  .site-nav a {
+    margin-left: 2rem;
+    text-decoration: none;
+    color: black;
+    font-size: 1 rem;
+  }
+
+
+.problem, .research, .userpersona, .design, .prototype {
+    margin-bottom: 5rem;
+    margin-top: 3rem;
+}
+
+h1, h2, h4, li{
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+p{
+  margin-left: 1rem;
+  margin-right: 9rem;
+}
+
+h2{
+  margin-bottom: 1rem;
+}
+
+h4{
+  margin-bottom: 1 rem;
+}
+
+.mockup-container {
+  width: 100vw;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  background: black; /* optional */
+}
+
+.mockup-container img {
+  width: 100%;
+  height: auto;
+  max-width: 100%; /* prevents it from exceeding browser width */
+}
+
+h1{
+  margin: 3.5rem;
+}
+
+.project-description {
+    font-size: 1rem;
+    margin: 3.5rem;
+    margin-right: 7rem;
+  }

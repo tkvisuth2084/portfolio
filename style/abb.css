@@ -1,0 +1,118 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+ @font-face {
+    font-family: 'RobotoMono';
+    src: url('../assets/fonts/RobotoMono-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  html, body {
+    width: 100%;
+    overflow-x: hidden;
+    background: white;
+    font-family: 'RobotoMono', sans-serif;
+  }
+  .gif-row img {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  main {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Make all images responsive */
+  img {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Fix header layout */
+  .site-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1rem;
+    background: white;
+    border-bottom: 1px solid black;
+  }
+  
+  .logo img {
+    width: 60px;
+    height: auto;
+  }
+  
+  .site-nav a {
+    margin-left: 2rem;
+    text-decoration: none;
+    color: black;
+    font-size: 1 rem;
+  }
+  
+  
+  /* Description text */
+  .project-description {
+    font-size: 1rem;
+    margin: 3.5rem;
+    margin-right: 15rem;
+  }
+  
+  /* GIF row */
+  .gif-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .postergif,
+.crumblegif {
+  width: auto;        /* use natural width */
+  max-width: 400px;   /* or whatever size you want */
+  height: auto;
+}
+  
+  .gif-center {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+  }
+  
+  .kapraogif {
+    width: 50%; /* Adjust to your desired size */
+    height: auto;
+  }
+  
+.movie{
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center;
+  gap: 1.5 rem;
+  margin: 2rem 0;
+}
+
+.movie img{
+  width: 70%; /* Adjust to your desired size */
+  height: auto;
+}
+
+h1{
+  margin: 3.5rem;
+}
+
+#riso_pos1, #riso_pos2, #riso_pos3{
+  padding: 100px 400px;
+}

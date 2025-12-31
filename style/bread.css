@@ -1,0 +1,92 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+@font-face {
+    font-family: 'RobotoMono';
+    src: url('../assets/fonts/RobotoMono-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  html, body {
+    width: 100%;
+    overflow-x: hidden;
+    background: white;
+    font-family: 'RobotoMono', sans-serif;
+  }
+  .gif-row img {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  main {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Make all images responsive */
+  img {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Fix header layout */
+  .site-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1rem;
+    background: white;
+    border-bottom: 1px solid black;
+  }
+  
+  .logo img {
+    width: 60px;
+    height: auto;
+  }
+  
+  .site-nav a {
+    margin-left: 2rem;
+    text-decoration: none;
+    color: black;
+    font-size: 1 rem;
+  }
+  
+  
+  /* Description text */
+  .project-description {
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 2rem auto;
+    text-align: center;
+  }
+  
+  /* GIF row */
+  .gif-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .gif-center {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+  }
+  
+  .kapraogif {
+    width: 50%; /* Adjust to your desired size */
+    height: auto;
+  }
+  

@@ -1,0 +1,168 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+  background-color: white;
+}
+
+
+
+@font-face {
+    font-family: 'RobotoMono';
+    src: url('../assets/fonts/RobotoMono-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+
+  .project-card a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .project-card a span {
+    text-decoration: none;
+    color: black;
+  }
+  
+
+body {
+    margin: 0;
+    font-family: 'RobotoMono', sans-serif;
+    background: white;
+    color: #000;
+  }
+
+  .logo img{
+    max-width: 100%;
+    width: 60px;
+    height: auto;
+    display: block;
+  }
+
+  .site-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #000000;
+    background: white;
+  }
+
+  .site-nav a {
+    margin-left: 2rem;
+    text-decoration: none;
+    color: black;
+    font-size: 1rem;
+  }
+
+  .site-nav:hover{
+    transform: scale(1);
+  }
+  
+  .section-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 5rem;
+  }
+
+  
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 2rem;
+    padding: 3rem 3rem;
+    max-width: 100%;
+    width:100%;
+    margin: 0 auto;
+  }
+
+  .project-grid a {
+    color: black;
+    text-decoration: none;
+  }
+  
+
+  .project-card {
+    background: white;
+    border: 1px solid #000000;
+    transition: transform 0.2s ease;
+  }
+  
+  .project-card:hover {
+    transform: scale(1.03); /* optional hover effect */
+  }
+  
+  .image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .project-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 4 / 3; /* or try 3 / 2 for more height */
+  object-fit: cover;
+  }
+
+
+  
+  .project-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-top: 1px 
+    solid #ccc;
+  }
+
+  #title{
+    font-weight: medium;
+  }
+
+  
+  .seeall {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: 1 / -1;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .seeall a{
+    text-decoration: underline;
+  }
+
+
+  .seeall h2{
+    text-align:center;
+    float: center;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: black;
+  }
+
+   .seeall:hover{
+    transform: scale(1.03); 
+  }
+
+  .grid{
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: (auto-fit, minmax(200px, 1fr));
+
+  }
+
+  .grid > .grid-item{
+    height: 200px;
+    width: 200px;
+    background: red;
+
+  }
