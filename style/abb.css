@@ -117,6 +117,12 @@ h1{
   padding: 100px 400px;
 }
 
-#kaprao{
-  padding: 50px;
+.kaprao{
+  width: 450px;
+  height: auto;
+}
+
+.poster, .crumble{
+  width: 500px;
+  height: auto;
 }
