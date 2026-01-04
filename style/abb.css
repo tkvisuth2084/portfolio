@@ -130,3 +130,8 @@ h1{
 .ilove, .ihate{
   padding: 300px;
 }
+
+.animation, .riso{
+  width: 100%;
+  height: auto;
+}
