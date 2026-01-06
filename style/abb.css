@@ -140,3 +140,49 @@ h1{
   width: 100%;
   height: auto;
 }
+
+#c_s{
+  padding: 0px 300px;
+}
+
+#cover_tot{
+  width: 400px;
+  margin-left: 40px;
+  border: 1px black solid;
+}
+
+#rocks{
+  width: 600px;
+  margin-top: -250px;
+  margin-left: 750px;
+  border: 1px black solid;
+}
+
+#postit_1{
+  width: 500px;
+  margin-top: -500px;
+  margin-left: 100px;
+  rotate: 75deg;
+}
+
+#prev{
+  width: 900px;
+  border: 1px black solid;
+  margin-top: 100px;
+  position: center;
+  margin-left: 450px;
+}
+
+#distort{
+  width: 500px;
+  border: 1px black solid;
+  margin-left: 150px;
+  margin-top: -100px;
+}
+
+#end_c{
+  width: 200px;
+  margin-left: 1000px;
+  margin-top: -200px;
+  rotate: -20deg;
+}
