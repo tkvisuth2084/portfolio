@@ -212,3 +212,11 @@ h1{
   margin-left: 600px;
   border: 1px black solid;
 }
+
+#credit{
+  width: 700px;
+  margin-left: 100px;
+  border: 1px black solid;
+  margin-bottom: 100px;
+  margin-top: 100px;
+}
