@@ -165,8 +165,10 @@ h1{
   rotate: 75deg;
 }
 
-#prev{
-  padding: 100px;
+#future{
+  width: 1400px;
+  margin: 50px;
+  border: 1px black solid;
 }
 
 #distort{
@@ -181,4 +183,32 @@ h1{
   margin-left: 1000px;
   margin-top: -200px;
   rotate: -20deg;
+}
+
+#collide{
+  width: 400px;
+  margin-left: 300px;
+  border: 1px black solid;
+}
+
+#research{
+  width: 800px;
+  margin-top: 50px;
+  margin-left: 60px;
+  border: 1px black solid;
+}
+
+#xyz{
+  width: 800px;
+  margin-top: 80px;
+  margin-left: 600px;
+  border: 1px black solid;
+
+}
+
+#xenakis{
+  width: 700px;
+  margin-top: 80px;
+  margin-left: 600px;
+  border: 1px black solid;
 }
