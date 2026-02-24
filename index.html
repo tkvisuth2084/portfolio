@@ -1,99 +1,643 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Portfolio – Napasorn (TK) Visuthiwat</title>
-        <link rel="stylesheet" href="./style/main.css">
-        
- 
-        <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
-    </head>
-    <body>
-        <header class="site-header">
-            <div class="logo">
-                <a href="./index.html">
-                 <img src="./assets/images/logo/embroi.png" alt="TK Visuthiwat Logo" />
-                </a>
-            </div>
-            <nav class = "site-nav">
-                <a href = "./index.html">home</a>
-                <a href ="./projects.html">projects</a>
-                <a href="mailto:tkvisuth2084@gmail.com">contact</a>
-            </nav>
-        </header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOUR_NAME — Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&family=Space+Mono:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <main>
-      <div class="pixel-wrapper">
-        <div id="grid"></div>
-      </div>
-      
-  
-        <h1 class="section-title">Projects</h1>
+        :root {
+            --bg: #ffffff;
+            --fg: #0a0a0a;
+            --accent1: #ff4d1c;
+            --accent2: #ffd60a;
+            --accent3: #0af5c8;
+            --cube-size: 150px;
+            --half: calc(var(--cube-size) / 2);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--fg);
+            font-family: 'Space Mono', monospace;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 200;
+            opacity: 0.35;
+        }
+
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            background-image:
+                    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ─────────────────────────────
+           FLOATING CUBES
+        ───────────────────────────── */
+        .cube-wrapper {
+            position: fixed;
+            width: var(--cube-size);
+            height: var(--cube-size);
+            perspective: 800px;
+            cursor: grab;
+            z-index: 100;
+            top: 0; left: 0;
+        }
+
+        .cube-wrapper.dragging {
+            cursor: grabbing;
+            z-index: 120;
+        }
+
+        .cube-wrapper::after {
+            content: 'click';
+            position: absolute;
+            bottom: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Roboto Mono', monospace;
+            font-size: 8px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(0,0,0,0.2);
+            white-space: nowrap;
+            pointer-events: none;
+            transition: opacity 0.5s;
+        }
+        .cube-wrapper.interacted::after { opacity: 0; }
+
+        .cube {
+            width: var(--cube-size);
+            height: var(--cube-size);
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        /* ── Face base styles ── */
+        .face {
+            position: absolute;
+            width: var(--cube-size);
+            height: var(--cube-size);
+            border: 3px solid #000;
+            display: grid;
+            padding: 18%;
+            backface-visibility: visible;
+            user-select: none;
+            text-decoration: none;
+            transition: filter 0.15s;
+        }
+
+        .face[href]:hover {
+            filter: brightness(1.12);
+            cursor: pointer;
+        }
+
+        /* ── Pip (filled dot) — fixed size so all pips identical ── */
+        .pip {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: none;
+            background: #000;
+            align-self: center;
+            justify-self: center;
+            flex-shrink: 0;
+        }
+
+        /* Remove the half-size override on face-5 center pip */
+        .face[data-val="5"] .pip:nth-child(5) {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* ── Grid layouts per face value ── */
+
+        /* 1 — single center pip */
+        .face[data-val="1"] {
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr;
+            align-items: center;
+            justify-items: center;
+        }
+
+        /* 2 — top-right, bottom-left */
+        .face[data-val="2"] {
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+        }
+        .face[data-val="2"] .pip:nth-child(1) { grid-column: 2; grid-row: 1; align-self: start; }
+        .face[data-val="2"] .pip:nth-child(2) { grid-column: 1; grid-row: 2; align-self: end; }
+
+        /* 3 — top-right, center, bottom-left */
+        .face[data-val="3"] {
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+        }
+        .face[data-val="3"] .pip:nth-child(1) { grid-column: 2; grid-row: 1; align-self: start; }
+        .face[data-val="3"] .pip:nth-child(2) { grid-column: 1; grid-row: 2; justify-self: center; grid-column: 1 / 3; }
+        .face[data-val="3"] .pip:nth-child(3) { grid-column: 1; grid-row: 3; align-self: end; }
+
+        /* 4 — four corners */
+        .face[data-val="4"] {
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+        }
+
+        /* 5 — four corners + center */
+        .face[data-val="5"] {
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+        }
+        .face[data-val="5"] .pip:nth-child(5) {
+            grid-column: 1 / 3;
+            grid-row: 2;
+            justify-self: center;
+            align-self: center;
+            width: 18px;
+            height: 18px;
+        }
+
+        /* 6 — two columns of three */
+        .face[data-val="6"] {
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+        }
+
+        .face.front  { transform: translateZ(var(--half)); }
+        .face.back   { transform: rotateY(180deg) translateZ(var(--half)); }
+        .face.left   { transform: rotateY(-90deg) translateZ(var(--half)); }
+        .face.right  { transform: rotateY(90deg)  translateZ(var(--half)); }
+        .face.top    { transform: rotateX(90deg)  translateZ(var(--half)); }
+        .face.bottom { transform: rotateX(-90deg) translateZ(var(--half)); }
+
+        /* ── All faces white background ── */
+        .face { background: #ffffff; }
+
+        /* ── Pip color per face value (same across all cubes) ── */
+        .face[data-val="1"] .pip { background: #FFc0c0; }   /* red-orange */
+        .face[data-val="2"] .pip { background: #80b0e8; }          /* yellow */
+        .face[data-val="3"] .pip { background: #008471; }   /* teal */
+        .face[data-val="4"] .pip { background: #D1cAEA; }          /* violet */
+        .face[data-val="5"] .pip { background: #D6D35F; }          /* pink */
+        .face[data-val="6"] .pip { background: #F29CC3; }          /* blue */
+
+        /* ── Cube border colors still distinct per cube ── */
+        .cube-1 .face { border-color: #000; }
+        .cube-2 .face { border-color: #000; }
+        .cube-3 .face { border-color: #000; }
+
+        /* ─────────────────────────────
+           PAGE CONTENT
+        ───────────────────────────── */
+        .hero-section {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .hero {
+            text-align: center;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .hero-name {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 600;
+            font-size: clamp(4rem, 13vw, 12rem);
+            line-height: 0.9;
+            letter-spacing: -0.02em;
+            color: var(--fg);
+        }
+
+        .hero-name span {
+            display: inline-block;
+            pointer-events: auto;
+            transition: color 0.15s;
+        }
+
+        .hero-name span:hover { color: darkseagreen; }
+
+        .hero-sub {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 300;
+            font-size: clamp(0.55rem, 1.3vw, 0.9rem);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(0,0,0,0.4);
+            margin-top: 1.4rem;
+        }
+
+        .hero-cta {
+            margin-top: 3rem;
+            display: inline-block;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--bg);
+            background: var(--fg);
+            padding: 0.8rem 2.5rem;
+            border: 2px solid var(--fg);
+            text-decoration: none;
+            pointer-events: auto;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .hero-cta:hover { background: transparent; color: var(--fg); }
+
+        /* Projects section */
+        .projects-section {
+            position: relative;
+            z-index: 1;
+            padding: 6rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 700;
+            font-size: clamp(2rem, 5vw, 4rem);
+            letter-spacing: -0.02em;
+            color: var(--fg);
+            margin-bottom: 3rem;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            display: block;
+            background: #f5f5f5;
+            border: 1px solid rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: border-color 0.2s, transform 0.2s;
+            text-decoration: none;
+            color: var(--fg);
+        }
+
+        .project-card:hover {
+            border-color: rgba(0,0,0,0.3);
+            transform: translateY(-4px);
+        }
+
+        .project-card img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(20%);
+            transition: filter 0.3s;
+        }
+
+        .project-card:hover img { filter: grayscale(0%); }
+
+        .project-info {
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .project-info .proj-title {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--fg);
+        }
+
+        .project-info .proj-meta {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 300;
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(0,0,0,0.4);
+        }
+
+        .seeall {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .seeall a {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(0,0,0,0.4);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(0,0,0,0.2);
+            padding-bottom: 0.2rem;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .seeall a:hover { color: var(--fg); border-color: var(--fg); }
+    </style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<!-- ── Floating cubes ── -->
+
+<!-- Cube 1 — warm reds/yellows -->
+<div class="cube-wrapper" id="wrap0">
+    <div class="cube cube-1" id="cube0">
+        <a class="face front" href="howtoinvertcucumber.html" data-val="1"><span class="pip"></span></a>
+        <a class="face back"  href="iloveihate.html" data-val="2"><span class="pip"></span><span class="pip"></span></a>
+        <a class="face left"  href="catalogofinfluences.html" data-val="3"><span class="pip"></span><span class="pip"></span><span class="pip"></span></a>
+        <a class="face right" href="breadandbutter.html" data-val="4"><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span></a>
+        <a class="face top"   href="findbite.html" data-val="5"><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span></a>
+        <a class="face bottom" href="artbeyondbars.html" data-val="6"><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span></a>
+    </div>
+</div>
+
+<!-- Cube 2 — cool teals -->
+<div class="cube-wrapper" id="wrap1">
+    <div class="cube cube-2" id="cube1">
+        <a class="face front" href="iloveihate.html" data-val="1"><span class="pip"></span></a>
+        <a class="face back"  href="musicposters.html" data-val="2"><span class="pip"></span><span class="pip"></span></a>
+        <a class="face left"  href="typemoviepos.html" data-val="3"><span class="pip"></span><span class="pip"></span><span class="pip"></span></a>
+        <a class="face right" href="hope.html" data-val="4"><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span></a>
+        <a class="face top"   href="sightofsound.html" data-val="5"><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span></a>
+        <a class="face bottom"href="breadandbutter.html" data-val="6"><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span></a>
+    </div>
+</div>
+
+<!-- Cube 3 — neutral greys -->
+<div class="cube-wrapper" id="wrap2">
+    <div class="cube cube-3" id="cube2">
+        <a class="face front" href="howtoinvertcucumber.html" data-val="1"><span class="pip"></span></a>
+        <a class="face back"  href="iloveihate.html" data-val="2"><span class="pip"></span><span class="pip"></span></a>
+        <a class="face left"  href="catalogofinfluences.html" data-val="3"><span class="pip"></span><span class="pip"></span><span class="pip"></span></a>
+        <a class="face right" href="breadandbutter.html" data-val="4"><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span></a>
+        <a class="face top"   href="findbite.html" data-val="5"><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span></a>
+        <a class="face bottom" href="artbeyondbars.html" data-val="6"><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span></a>
+    </div>
+</div>
+
+<!-- ── Page content ── -->
+<main>
+
+    <section class="hero-section">
+        <div class="hero">
+            <div class="hero-name">
+                <span>N</span><span>A</span><span>P</span><span>A</span><span>S</span><span>O</span><span>R</span><span>N</span>
+            </div>
+            <div class="hero-sub">Design &amp; Development</div>
+            <a class="hero-cta" href="projects.html">View Work</a>
+        </div>
+    </section>
+
+    <section class="projects-section">
+        <h2 class="section-title">Projects</h2>
 
         <div class="project-grid">
 
-           <!-- Project 1 -->
-
-          <a href="howtoinvertcucumber.html">
-      <div class="project-card">
-        <img src="./assets/images/projects/thoughtonthesis/spread35.png" alt="tot" />
+            <a class="project-card" href="howtoinvertcucumber.html">
+                <img src="./assets/images/projects/thoughtonthesis/spread35.png" alt="howtoweaveacucumber" />
                 <div class="project-info">
-                  <span>How to Invert a Cucumber</span>
-                  <span>Graphic + Editorial</span>
-                  <span>2025</span>
+                    <span class="proj-title">How to weave a cucumber</span>
+                    <span class="proj-meta">Thesis · 2026</span>
                 </div>
-      </div>
-      </a>
+            </a>
 
+            <a class="project-card" href="catalogofinfluences.html">
+                <img src="./assets/images/projects/catalogofinfluences/naturegreenbg.jpg" alt="Catalog of Influences" />
+                <div class="project-info">
+                    <span class="proj-title">Catalog of Influences</span>
+                    <span class="proj-meta">Graphic · 2024</span>
+                </div>
+            </a>
 
-          <!-- Project 1 -->
+            <a class="project-card" href="./iloveihate.html">
+                <img src="./assets/images/projects/ihate.jpg" alt="I love / I hate routine" />
+                <div class="project-info">
+                    <span class="proj-title">I love / I hate routine</span>
+                    <span class="proj-meta">Poster Design · 2025</span>
+                </div>
+            </a>
 
-          <a href="catalogofinfluences.html">
-      <div class="project-card">
-        <img src="./assets/images/projects/catalogofinfluences/naturegreenbg.jpg" alt="catalogofinflu" />
-        <div class="project-info">
-          <span id="title">Catalog of Influences</span>
-          <span>Graphic</span>
-          <span>2024</span>
+            <a class="project-card" href="breadandbutter.html">
+                <img src="./assets/images/projects/b&b/thumbnail.png" alt="Bread & Butter Restaurant" />
+                <div class="project-info">
+                    <span class="proj-title">Bread & Butter Restaurant</span>
+                    <span class="proj-meta">Branding · 2024</span>
+                </div>
+            </a>
+
+            <a class="project-card" href="./artbeyondbars.html">
+                <img src="./assets/images/projects/artbeyondbar.jpg" alt="Art Beyond Bars" />
+                <div class="project-info">
+                    <span class="proj-title">Art Beyond Bars</span>
+                    <span class="proj-meta">Branding · 2025</span>
+                </div>
+            </a>
+
+            <div class="seeall">
+                <a href="./projects.html">see all projects</a>
+            </div>
+
         </div>
-      </div>
-      </a>
+    </section>
 
-          <!-- Project 2 -->
-      <a href="./iloveihate.html">
-      <div class="project-card">
-        <img src="./assets/images/projects/ihate.jpg" alt="routine"  class="routine"/>
-        <div class="project-info">
-          <span id="title">I love / I hate routine</span>
-          <span>Poster Design</span>
-          <span>2025</span>
-        </div>
-      </div>
-      </a>
+</main>
 
-       <!-- Project 3 -->
-      <a href="breadandbutter.html">
-       <div class="project-card">
-        <img src="./assets/images/projects/b&b/thumbnail.png" alt="bread&butter" />
-        <div class="project-info">
-          <span id="title">Bread & Butter Restaurant (internship)</span>
-          <span>Branding</span>
-          <span>2024</span>
-        </div>
-      </div>
-    </a>
+<script src="script.js"></script>
+<script>
+    const CUBE_SIZE = 150;
 
-     
+    function rnd(min, max) { return Math.random() * (max - min) + min; }
 
-      <!-- see all projects -->
-<div class="seeall">
-  <a href="./projects.html"> <h2>see all projects</h2> </a>
-</div>
+    const cubes = [0, 1, 2].map(i => ({
+        wrap:   document.getElementById(`wrap${i}`),
+        cubeEl: document.getElementById(`cube${i}`),
+        x: rnd(120, window.innerWidth  - CUBE_SIZE - 120),
+        y: rnd(120, window.innerHeight - CUBE_SIZE - 120),
+        vx: rnd(-1.2, 1.2) || 0.6,
+        vy: rnd(-1.2, 1.2) || 0.6,
+        rotX: rnd(0, 360),
+        rotY: rnd(0, 360),
+        rotZ: rnd(0, 360),
+        rxs: rnd(-0.35, 0.35) || 0.25,
+        rys: rnd(-0.35, 0.35) || 0.2,
+        rzs: rnd(-0.15, 0.15),
+        dragging: false,
+        inertia:  false,
+        dragVX: 0,
+        dragVY: 0,
+        lastMX: 0,
+        lastMY: 0,
+    }));
 
-</div>
-    </main>
-    <script src="script.js"></script>
+    cubes.forEach(c => {
+        if (Math.abs(c.vx) < 0.3) c.vx = c.vx < 0 ? -0.5 : 0.5;
+        if (Math.abs(c.vy) < 0.3) c.vy = c.vy < 0 ? -0.5 : 0.5;
+    });
 
-    </body>
+    function render(c) {
+        c.wrap.style.transform = `translate(${c.x}px, ${c.y}px)`;
+        c.cubeEl.style.transform = `rotateX(${c.rotX}deg) rotateY(${c.rotY}deg) rotateZ(${c.rotZ}deg)`;
+    }
+
+    cubes.forEach(render);
+
+    function tick() {
+        const W = window.innerWidth;
+        const H = window.innerHeight;
+
+        cubes.forEach(c => {
+            if (c.dragging) return;
+
+            c.rotX += c.rxs;
+            c.rotY += c.rys;
+            c.rotZ += c.rzs;
+
+            if (c.inertia) {
+                c.x += c.dragVX;
+                c.y += c.dragVY;
+                c.dragVX *= 0.92;
+                c.dragVY *= 0.92;
+                if (Math.abs(c.dragVX) < 0.1 && Math.abs(c.dragVY) < 0.1) c.inertia = false;
+            } else {
+                c.x += c.vx;
+                c.y += c.vy;
+            }
+
+            if (c.x <= 0)             { c.x = 0;             c.vx =  Math.abs(c.vx);  c.dragVX =  Math.abs(c.dragVX); }
+            if (c.x >= W - CUBE_SIZE) { c.x = W - CUBE_SIZE; c.vx = -Math.abs(c.vx);  c.dragVX = -Math.abs(c.dragVX); }
+            if (c.y <= 0)             { c.y = 0;             c.vy =  Math.abs(c.vy);  c.dragVY =  Math.abs(c.dragVY); }
+            if (c.y >= H - CUBE_SIZE) { c.y = H - CUBE_SIZE; c.vy = -Math.abs(c.vy);  c.dragVY = -Math.abs(c.dragVY); }
+
+            render(c);
+        });
+
+        requestAnimationFrame(tick);
+    }
+    tick();
+
+    // ── Drag ──
+    // We track mousedown on the wrapper, but clicks on <a> faces
+    // should still navigate — so we only preventDefault on actual drags.
+
+    function getXY(e) {
+        const src = e.touches ? e.touches[0] : e;
+        return { x: src.clientX, y: src.clientY };
+    }
+
+    function cubeForEl(el) {
+        return cubes.find(c => c.wrap.contains(el));
+    }
+
+    let active     = null;
+    let didDrag    = false;
+    let downX      = 0;
+    let downY      = 0;
+
+    function onDown(e) {
+        const c = cubeForEl(e.target);
+        if (!c) return;
+        active     = c;
+        didDrag    = false;
+        const { x, y } = getXY(e);
+        downX      = x;
+        downY      = y;
+        c.dragging = false; // tentative — set true only if actually moved
+        c.inertia  = false;
+        c.dragVX   = 0;
+        c.dragVY   = 0;
+        c.wrap.classList.add('interacted');
+        c.lastMX = x;
+        c.lastMY = y;
+    }
+
+    function onMove(e) {
+        if (!active) return;
+        const c = active;
+        const { x, y } = getXY(e);
+        const dx = x - c.lastMX;
+        const dy = y - c.lastMY;
+
+        // Only start dragging if moved more than 4px
+        if (!didDrag) {
+            const totalDx = x - downX;
+            const totalDy = y - downY;
+            if (Math.sqrt(totalDx * totalDx + totalDy * totalDy) < 4) return;
+            didDrag    = true;
+            c.dragging = true;
+            c.wrap.classList.add('dragging');
+            e.preventDefault();
+        }
+
+        e.preventDefault();
+        c.x    += dx;
+        c.y    += dy;
+        c.rotY += dx * 0.6;
+        c.rotX += dy * 0.6;
+        c.dragVX = dx;
+        c.dragVY = dy;
+        c.lastMX = x;
+        c.lastMY = y;
+        render(c);
+    }
+
+    function onUp(e) {
+        if (!active) return;
+        const c = active;
+
+        if (c.dragging) {
+            // Was a drag — cancel any link click
+            c.dragging = false;
+            c.inertia  = true;
+            c.wrap.classList.remove('dragging');
+        }
+        // If didDrag is false, it was a real click — let the <a href> navigate normally
+
+        active  = null;
+        didDrag = false;
+    }
+
+    window.addEventListener('mousedown',  onDown);
+    window.addEventListener('mousemove',  onMove);
+    window.addEventListener('mouseup',    onUp);
+    window.addEventListener('touchstart', onDown, { passive: true });
+    window.addEventListener('touchmove',  onMove, { passive: false });
+    window.addEventListener('touchend',   onUp);
+
+    // Block link navigation if a drag happened
+    document.querySelectorAll('.face[href]').forEach(face => {
+        face.addEventListener('click', e => {
+            if (didDrag) e.preventDefault();
+        });
+    });
+</script>
+
+</body>
 </html>
