@@ -1,156 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>TK Visuthiwat – Portfolio</title>
-        <link rel="stylesheet" href="./style/main2.css">
-    </head>
-    <body>
-        <header class="site-header">
-            <div class="logo">
-                <a href="./index.html">
-                <img src="./assets/images/logo/embroi.png" alt="TK Visuthiwat Logo" />
-                </a>
-              </div>
-            <nav class = "site-nav">
-                <a href = "./index.html">home</a>
-                <a href ="./projects.html">projects</a>
-                <a href="mailto:tkvisuth2084@gmail.com">contact</a>
-            </nav>
-        </header>
-        <main>
-            <h1 class="section-title">Projects</h1>
-    
-            <div class="project-grid">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YOUR_NAME — Projects</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-               <!-- Project 1 -->
-              <a href="./howtoinvertcucumber.html">
-              <div class="project-card">
-                <img src="./assets/images/projects/thoughtonthesis/spread35.png" alt="tot" />
-                <div class="project-info">
-                  <span>How to Invert a Cucumber</span>
-                  <span>Graphic + Editorial</span>
-                  <span>2025</span>
-                </div>
-              </div>
-            </a>
+        :root {
+            --bg: #ffffff;
+            --fg: #0a0a0a;
+            --accent1: #ff4d1c;
+            --accent2: #ffd60a;
+            --accent3: #0af5c8;
+        }
 
-              <!-- Project 2 -->
-              <a href="./sightofsound.html">
-              <div class="project-card">
-                <img src="./assets/images/projects/sightofsound/1.png" alt="Art Beyond Bars" />
-                <div class="project-info">
-                  <span>Sight of Sound</span>
-                  <span>Graphic + Motion</span>
-                  <span>2025</span>
-                </div>
-              </div>
-            </a>
+        body {
+            background: var(--bg);
+            color: var(--fg);
+            font-family: 'Roboto Mono', monospace;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
+        /* Grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 200;
+            opacity: 0.35;
+        }
 
-              <!-- Project 2 -->
-              <div class="project-card">
-        <a href="./catalogofinfluences.html">
-        <img src="./assets/images/projects/catalogofinfluences/naturegreenbg.jpg" alt="catalogofinflu" />
-        <div class="project-info">
-          <span>Catalog of Influences</span>
-          <span>Editorial</span>
-          <span>2025</span>
-        </div>
+        /* Subtle grid background */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── Header ── */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--fg);
+            background: var(--bg);
+        }
+
+        .logo img {
+            width: 60px;
+            height: auto;
+            display: block;
+        }
+
+        .site-nav a {
+            margin-left: 2rem;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            color: var(--fg);
+            transition: color 0.15s;
+        }
+
+        .site-nav a:hover { color: var(--accent1); }
+
+        /* ── Main content ── */
+        main {
+            position: relative;
+            z-index: 1;
+            padding: 4rem 3rem 6rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* ── Page title ── */
+        .section-title {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 700;
+            font-size: clamp(2rem, 5vw, 4rem);
+            letter-spacing: -0.02em;
+            color: var(--fg);
+            margin-bottom: 3rem;
+        }
+
+        /* ── Project grid ── */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* ── Project card ── */
+        .project-card {
+            display: block;
+            background: var(--bg);
+            border: 1px solid var(--fg);
+            text-decoration: none;
+            color: var(--fg);
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 4px 4px 0px var(--fg);
+        }
+
+        .project-card img,
+        .project-card video {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            display: block;
+        }
+
+        .project-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            border-top: 1px solid var(--fg);
+        }
+
+        .proj-title {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--fg);
+            flex: 1;
+        }
+
+        .proj-type,
+        .proj-year {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 300;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(0,0,0,0.45);
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header class="site-header">
+    <div class="logo">
+        <a href="./index.html">
+            <img src="./assets/images/logo/embroi.png" alt="YOUR_NAME Logo" />
         </a>
-      </div>
+    </div>
+    <nav class="site-nav">
+        <a href="./index.html">home</a>
+        <a href="./projects.html">projects</a>
+        <a href="mailto:tkvisuth2084@gmail.com">contact</a>
+    </nav>
+</header>
 
-               <!-- Project 3 -->
-       <div class="project-card">
-        <a href="breadandbutter.html">
-        <img src="./assets/images/projects/b&b/thumbnail.png" alt="bread&butter" />
-        <div class="project-info">
-          <span>Bread & Butter Restaurant (internship)</span>
-          <span>Branding</span>
-          <span>2024</span>
-        </div>
-        </a>
-      </div>
-    
-              <!-- Project 4 -->
-               <a href="./artbeyondbars.html">
-              <div class="project-card">
-                <img src="./assets/images/projects/artbeyondbar.jpg" alt="Art Beyond Bars" />
-                <div class="project-info">
-                  <span>Art Beyond Bars</span>
-                  <span>Branding</span>
-                  <span>2025</span>
-                </div>
-              </div>
-            </a>
-  
+<!-- ── Content ── -->
+<main>
+    <h1 class="section-title">Projects</h1>
 
-      <!-- Project 5 -->
-      <div class="project-card">
-        <a href="findbite.html">
-        <img src="./assets/images/projects/findbite/ux.png" alt="findbite" />
-        <div class="project-info">
-          <span>Find Bite</span>
-          <span>UX/UI</span>
-          <span>2025</span>
-        </div>
-      </a>
-      </div>
-      
-   
+    <div class="project-grid">
 
-      <!-- Project 6 -->
-      <div class="project-card">
-            <a href="iloveihate.html">
-            <img src="./assets/images/projects/ihate.jpg" alt="routine"  class="routine"/>
+        <!-- 1 -->
+        <a class="project-card" href="./howtoinvertcucumber.html">
+            <img src="./assets/images/projects/thoughtonthesis/spread35.png" alt="How to Invert a Cucumber" />
             <div class="project-info">
-              <span>I love / I hate routine</span>
-              <span>Poster Design</span>
-              <span>2025</span>
+                <span class="proj-title">How to Invert a Cucumber</span>
+                <span class="proj-type">Graphic + Editorial</span>
+                <span class="proj-year">2025</span>
             </div>
-          </a>
-      </div>
+        </a>
+
+        <!-- 2 -->
+        <a class="project-card" href="./sightofsound.html">
+            <img src="./assets/images/projects/sightofsound/1.png" alt="Sight of Sound" />
+            <div class="project-info">
+                <span class="proj-title">Sight of Sound</span>
+                <span class="proj-type">Graphic + Motion</span>
+                <span class="proj-year">2025</span>
+            </div>
+        </a>
+
+        <!-- 3 -->
+        <a class="project-card" href="./catalogofinfluences.html">
+            <img src="./assets/images/projects/catalogofinfluences/naturegreenbg.jpg" alt="Catalog of Influences" />
+            <div class="project-info">
+                <span class="proj-title">Catalog of Influences</span>
+                <span class="proj-type">Editorial</span>
+                <span class="proj-year">2025</span>
+            </div>
+        </a>
+
+        <!-- 4 -->
+        <a class="project-card" href="./breadandbutter.html">
+            <img src="./assets/images/projects/b&b/thumbnail.png" alt="Bread & Butter Restaurant" />
+            <div class="project-info">
+                <span class="proj-title">Bread & Butter Restaurant</span>
+                <span class="proj-type">Branding</span>
+                <span class="proj-year">2024</span>
+            </div>
+        </a>
+
+        <!-- 5 -->
+        <a class="project-card" href="./artbeyondbars.html">
+            <img src="./assets/images/projects/artbeyondbar.jpg" alt="Art Beyond Bars" />
+            <div class="project-info">
+                <span class="proj-title">Art Beyond Bars</span>
+                <span class="proj-type">Branding</span>
+                <span class="proj-year">2025</span>
+            </div>
+        </a>
+
+        <!-- 6 -->
+        <a class="project-card" href="./findbite.html">
+            <img src="./assets/images/projects/findbite/ux.png" alt="Find Bite" />
+            <div class="project-info">
+                <span class="proj-title">Find Bite</span>
+                <span class="proj-type">UX/UI</span>
+                <span class="proj-year">2025</span>
+            </div>
+        </a>
+
+        <!-- 7 -->
+        <a class="project-card" href="./iloveihate.html">
+            <img src="./assets/images/projects/ihate.jpg" alt="I love / I hate routine" />
+            <div class="project-info">
+                <span class="proj-title">I love / I hate routine</span>
+                <span class="proj-type">Poster Design</span>
+                <span class="proj-year">2025</span>
+            </div>
+        </a>
+
+        <!-- 8 -->
+        <a class="project-card" href="./typemoviepos.html">
+            <img src="./assets/images/projects/type_movie_posters/thumbnail.png" alt="Movie Posters" />
+            <div class="project-info">
+                <span class="proj-title">Movie Posters</span>
+                <span class="proj-type">Graphic</span>
+                <span class="proj-year">2024</span>
+            </div>
+        </a>
+
+        <!-- 9 -->
+        <a class="project-card" href="./musicposters.html">
+            <img src="./assets/images/projects/music_posters/joni.jpg" alt="Music Posters" />
+            <div class="project-info">
+                <span class="proj-title">Music Posters</span>
+                <span class="proj-type">Graphic</span>
+                <span class="proj-year">2023–2025</span>
+            </div>
+        </a>
 
 
-      <!-- Project 7 -->
-      <div class="project-card">
-        <a href="typemoviepos.html">
-        <img src="./assets/images/projects/type_movie_posters/thumbnail.png" alt="catalogofinflu" />
-        <div class="project-info">
-          <span>Movie Posters</span>
-          <span>Graphic</span>
-          <span>2024</span>
-        </div>
-        </a> 
-      </div>
+    </div>
+</main>
 
-
-       <!-- Project 8 -->
-      <div class="project-card">
-        <a href="musicposters.html">
-        <img src="./assets/images/projects/music_posters/joni.jpg" alt="musicposters" />
-        <div class="project-info">
-          <span>Music Posters</span>
-          <span>Graphic</span>
-          <span>2023-2025</span>
-        </div>
-        </a> 
-      </div>
-
-      
-
-      <!-- Project 10 -->
-      <div class="project-card">
-        <a href="hope.html">
-       <video class="flap" autoplay loop muted playsinline preload="auto"> <source src="./assets/images/projects/hope/ flap_web.mp4" type="video/mp4"></video>
-        <div class="project-info">
-          <span>HOPE</span>
-          <span>Graphic</span>
-          <span>2023</span>
-        </div>
-        </a> 
-      </div>
-
-
-
+</body>
+</html>

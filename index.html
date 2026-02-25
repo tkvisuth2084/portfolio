@@ -121,12 +121,6 @@
             flex-shrink: 0;
         }
 
-        /* Remove the half-size override on face-5 center pip */
-        .face[data-val="5"] .pip:nth-child(5) {
-            width: 18px;
-            height: 18px;
-        }
-
         /* ── Grid layouts per face value ── */
 
         /* 1 — single center pip */
@@ -151,7 +145,7 @@
             grid-template-rows: 1fr 1fr 1fr;
         }
         .face[data-val="3"] .pip:nth-child(1) { grid-column: 2; grid-row: 1; align-self: start; }
-        .face[data-val="3"] .pip:nth-child(2) { grid-column: 1; grid-row: 2; justify-self: center; grid-column: 1 / 3; }
+        .face[data-val="3"] .pip:nth-child(2) { grid-column: 1 / 3; grid-row: 2; justify-self: center; }
         .face[data-val="3"] .pip:nth-child(3) { grid-column: 1; grid-row: 3; align-self: end; }
 
         /* 4 — four corners */
@@ -190,15 +184,15 @@
         /* ── All faces white background ── */
         .face { background: #ffffff; }
 
-        /* ── Pip color per face value (same across all cubes) ── */
-        .face[data-val="1"] .pip { background: #FFc0c0; }   /* red-orange */
-        .face[data-val="2"] .pip { background: #80b0e8; }          /* yellow */
-        .face[data-val="3"] .pip { background: #008471; }   /* teal */
-        .face[data-val="4"] .pip { background: #D1cAEA; }          /* violet */
-        .face[data-val="5"] .pip { background: #D6D35F; }          /* pink */
-        .face[data-val="6"] .pip { background: #F29CC3; }          /* blue */
+        /* ── Pip color per face value ── */
+        .face[data-val="1"] .pip { background: #FFc0c0; }
+        .face[data-val="2"] .pip { background: #80b0e8; }
+        .face[data-val="3"] .pip { background: #008471; }
+        .face[data-val="4"] .pip { background: #D1cAEA; }
+        .face[data-val="5"] .pip { background: #D6D35F; }
+        .face[data-val="6"] .pip { background: #F29CC3; }
 
-        /* ── Cube border colors still distinct per cube ── */
+        /* ── Cube border colors ── */
         .cube-1 .face { border-color: #000; }
         .cube-2 .face { border-color: #000; }
         .cube-3 .face { border-color: #000; }
@@ -267,7 +261,7 @@
 
         .hero-cta:hover { background: transparent; color: var(--fg); }
 
-        /* Projects section */
+        /* ── Projects section ── */
         .projects-section {
             position: relative;
             z-index: 1;
@@ -287,23 +281,46 @@
 
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1.5rem;
         }
 
+        /* Row 1: 3 equal cards */
+        .project-card:nth-child(1) { grid-column: 1 / 3; }
+        .project-card:nth-child(2) { grid-column: 3 / 5; }
+        .project-card:nth-child(3) { grid-column: 5 / 7; }
+
+        /* Row 2: 2 cards, centered — each spans 2 of 6 cols, offset by 1 */
+        .project-card:nth-child(4) { grid-column: 2 / 4; }
+        .project-card:nth-child(5) { grid-column: 4 / 6; }
+
+        .seeall { grid-column: 1 / -1; }
+
+        @media (max-width: 800px) {
+            .project-grid { grid-template-columns: repeat(2, 1fr); }
+            .project-card:nth-child(n) { grid-column: span 1; }
+            .seeall { grid-column: 1 / -1; }
+        }
+
+        @media (max-width: 520px) {
+            .project-grid { grid-template-columns: 1fr; }
+            .project-card:nth-child(n) { grid-column: span 1; }
+        }
+
+        /* ── Project card — matches projects.html ── */
         .project-card {
             display: block;
-            background: white;
-            border: 1px solid rgba(0,0,0,0.08);
+            background: var(--bg);
+            border: 1px solid var(--fg);
             overflow: hidden;
-            transition: border-color 0.2s, transform 0.2s;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             text-decoration: none;
             color: var(--fg);
         }
 
         .project-card:hover {
-            border-color: rgba(0,0,0,0.3);
             transform: translateY(-4px);
+            box-shadow: 4px 4px 0px var(--fg);
         }
 
         .project-card img {
@@ -311,35 +328,36 @@
             aspect-ratio: 4/3;
             object-fit: cover;
             display: block;
-            filter: grayscale(20%);
-            transition: filter 0.3s;
         }
 
-        .project-card:hover img { filter: grayscale(0%); }
-
         .project-info {
-            padding: 1.2rem;
             display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            border-top: 1px solid var(--fg);
         }
 
         .project-info .proj-title {
             font-family: 'Roboto Mono', monospace;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.85rem;
             color: var(--fg);
+            flex: 1;
         }
 
         .project-info .proj-meta {
             font-family: 'Roboto Mono', monospace;
             font-weight: 300;
-            font-size: 0.68rem;
-            letter-spacing: 0.15em;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: rgba(0,0,0,0.4);
+            color: rgba(0,0,0,0.45);
+            white-space: nowrap;
         }
 
+        /* ── See all ── */
         .seeall {
             grid-column: 1 / -1;
             text-align: center;
@@ -367,7 +385,7 @@
 
 <!-- ── Floating cubes ── -->
 
-<!-- Cube 1 — warm reds/yellows -->
+<!-- Cube 1 -->
 <div class="cube-wrapper" id="wrap0">
     <div class="cube cube-1" id="cube0">
         <a class="face front" href="howtoinvertcucumber.html" data-val="1"><span class="pip"></span></a>
@@ -379,7 +397,7 @@
     </div>
 </div>
 
-<!-- Cube 2 — cool teals -->
+<!-- Cube 2 -->
 <div class="cube-wrapper" id="wrap1">
     <div class="cube cube-2" id="cube1">
         <a class="face front" href="iloveihate.html" data-val="1"><span class="pip"></span></a>
@@ -391,7 +409,7 @@
     </div>
 </div>
 
-<!-- Cube 3 — neutral greys -->
+<!-- Cube 3 -->
 <div class="cube-wrapper" id="wrap2">
     <div class="cube cube-3" id="cube2">
         <a class="face front" href="howtoinvertcucumber.html" data-val="1"><span class="pip"></span></a>
@@ -412,7 +430,7 @@
                 <span>N</span><span>A</span><span>P</span><span>A</span><span>S</span><span>O</span><span>R</span><span>N</span>
             </div>
             <div class="hero-sub">Design &amp; Development</div>
-            <a class="hero-cta" href="projects.html">View Work</a>
+            <a class="hero-cta" href="projects.html">View Projects</a>
         </div>
     </section>
 
@@ -422,7 +440,7 @@
         <div class="project-grid">
 
             <a class="project-card" href="howtoinvertcucumber.html">
-                <img src="./assets/images/projects/thoughtonthesis/spread35.png" alt="howtoweaveacucumber" />
+                <img src="./assets/images/projects/thoughtonthesis/spread35.png" alt="How to weave a cucumber" />
                 <div class="project-info">
                     <span class="proj-title">How to weave a cucumber</span>
                     <span class="proj-meta">Thesis · 2026</span>
@@ -543,10 +561,6 @@
     }
     tick();
 
-    // ── Drag ──
-    // We track mousedown on the wrapper, but clicks on <a> faces
-    // should still navigate — so we only preventDefault on actual drags.
-
     function getXY(e) {
         const src = e.touches ? e.touches[0] : e;
         return { x: src.clientX, y: src.clientY };
@@ -569,7 +583,7 @@
         const { x, y } = getXY(e);
         downX      = x;
         downY      = y;
-        c.dragging = false; // tentative — set true only if actually moved
+        c.dragging = false;
         c.inertia  = false;
         c.dragVX   = 0;
         c.dragVY   = 0;
@@ -585,7 +599,6 @@
         const dx = x - c.lastMX;
         const dy = y - c.lastMY;
 
-        // Only start dragging if moved more than 4px
         if (!didDrag) {
             const totalDx = x - downX;
             const totalDy = y - downY;
@@ -613,12 +626,10 @@
         const c = active;
 
         if (c.dragging) {
-            // Was a drag — cancel any link click
             c.dragging = false;
             c.inertia  = true;
             c.wrap.classList.remove('dragging');
         }
-        // If didDrag is false, it was a real click — let the <a href> navigate normally
 
         active  = null;
         didDrag = false;
@@ -631,7 +642,6 @@
     window.addEventListener('touchmove',  onMove, { passive: false });
     window.addEventListener('touchend',   onUp);
 
-    // Block link navigation if a drag happened
     document.querySelectorAll('.face[href]').forEach(face => {
         face.addEventListener('click', e => {
             if (didDrag) e.preventDefault();
