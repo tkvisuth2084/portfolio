@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TK Visuthiwat – About</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #ffffff;
+            --fg: #0a0a0a;
+            --accent1: #ff4d1c;
+            --accent2: #ffd60a;
+            --accent3: #0af5c8;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--fg);
+            font-family: 'Roboto Mono', monospace;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 200;
+            opacity: 0.35;
+        }
+
+        /* Grid background */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── Header ── */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--fg);
+            background: var(--bg);
+        }
+
+        .logo img {
+            width: 60px;
+            height: auto;
+            display: block;
+        }
+
+
+        .logo a {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            color: var(--fg);
+            white-space: nowrap;
+        }
+        .site-nav a {
+            margin-left: 2rem;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            color: var(--fg);
+            transition: color 0.15s;
+        }
+
+        .site-nav a:hover { color: var(--fg); }
+        .site-nav a.active { border-bottom: 1.5px solid var(--fg); }
+
+        /* ── Main layout ── */
+        main {
+            position: relative;
+            z-index: 1;
+            padding: 4rem 3rem 6rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ── About grid ── */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        /* ── Left column: portrait + quick facts ── */
+        .about-left {}
+
+        .portrait-block {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .portrait-block img {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            object-fit: cover;
+            display: block;
+            border: 1px solid var(--fg);
+            filter: grayscale(15%);
+        }
+
+        /* accent corner */
+
+        .quick-facts {
+            border: 1px solid var(--fg);
+        }
+
+        .fact-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 0.65rem 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            gap: 1rem;
+        }
+
+        .fact-row:last-child { border-bottom: none; }
+
+        .fact-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(0,0,0,0.35);
+            white-space: nowrap;
+        }
+
+        .fact-value {
+            font-size: 0.8rem;
+            font-weight: 400;
+            text-align: right;
+        }
+
+        /* ── Right column: text content ── */
+        .about-right {}
+
+        .about-right h1 {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 700;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            letter-spacing: -0.03em;
+            line-height: 0.95;
+            margin-bottom: 2.5rem;
+        }
+
+        .about-right h1 em {
+            font-style: normal;
+            color: var(--fg);
+        }
+
+        .about-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .about-section h2 {
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(0,0,0,0.35);
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .about-section p {
+            font-size: 0.88rem;
+            line-height: 1.85;
+            font-weight: 300;
+            color: rgba(0,0,0,0.75);
+        }
+
+        /* ── Skills list ── */
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            list-style: none;
+        }
+
+        .skills-list li {
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.35rem 0.85rem;
+            border: 1px solid var(--fg);
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .skills-list li:hover {
+            background: var(--fg);
+            color: var(--bg);
+        }
+
+        /* ── CTA button ── */
+        .cta-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .btn {
+            display: inline-block;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 0.8rem 2rem;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--fg);
+            color: var(--bg);
+            border: 2px solid var(--fg);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--fg);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--fg);
+            border: 2px solid var(--fg);
+        }
+
+        .btn-secondary:hover {
+            background: var(--fg);
+            color: var(--bg);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .about-left {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5rem;
+                align-items: start;
+            }
+
+            .portrait-block { margin-bottom: 0; }
+        }
+
+        @media (max-width: 600px) {
+            main { padding: 2rem 1.25rem 4rem; }
+
+            .about-left {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="logo"><a href="./index.html">Napasorn (TK) Visuthiwat</a></div>
+    <nav class="site-nav">
+        <a href="./index.html">work</a>
+        <a href="./about.html" class="active">about</a>
+    </nav>
+</header>
+
+<main>
+    <div class="about-grid">
+
+        <!-- Left: portrait + quick facts -->
+        <div class="about-left">
+            <div class="portrait-block">
+                <!-- Replace with your own photo: <img src="./assets/images/about/portrait.jpg" alt="TK Visuthiwat"> -->
+                <!-- Placeholder until a photo is added -->
+                <img src="./assets/images/logo/embroi.png" alt="TK Visuthiwat" style="aspect-ratio:3/4;object-fit:contain;padding:2rem;background:#f5f5f5;" />
+            </div>
+
+            <div class="quick-facts">
+                <div class="fact-row">
+                    <span class="fact-label">Based in</span>
+                    <span class="fact-value">United States</span>
+                </div>
+                <div class="fact-row">
+                    <span class="fact-label">Discipline</span>
+                    <span class="fact-value">Graphic Design</span>
+                </div>
+                <div class="fact-row">
+                    <span class="fact-label">Available</span>
+                    <span class="fact-value">Open to opportunities</span>
+                </div>
+                <div class="fact-row">
+                    <span class="fact-label">Email</span>
+                    <span class="fact-value">
+                        <a href="mailto:tkvisuth2084@gmail.com" style="color:inherit;text-decoration:underline;">tkvisuth2084@gmail.com</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: bio + skills -->
+        <div class="about-right">
+            <h1>Napasorn (TK) Visuthiwat</h1>
+
+            <div class="about-section">
+                <h2>About</h2>
+                <p>
+                    I'm a graphic designer with a passion for visual communication, editorial design, and branding. My work sits at the intersection of concept-driven thinking and craft — from riso-printed animations to full brand identities.
+                </p>
+            </div>
+
+            <div class="about-section">
+                <h2>Background</h2>
+                <p>
+                    Originally from Thailand, I bring a cross-cultural perspective to every project. My design practice is shaped by a love of mathematics, music, and materials — I'm drawn to systems and structures that reveal unexpected beauty. Whether working with print, motion, or digital interfaces, I try to build work that feels both considered and alive.
+                </p>
+            </div>
+
+            <div class="about-section">
+                <h2>Skills</h2>
+                <ul class="skills-list">
+                    <li>Brand Identity</li>
+                    <li>Editorial Design</li>
+                    <li>Motion Graphics</li>
+                    <li>Typography</li>
+                    <li>UX / UI</li>
+                    <li>Risograph Print</li>
+                    <li>Illustration</li>
+                    <li>Adobe Suite</li>
+                    <li>Figma</li>
+                    <li>HTML / CSS</li>
+                </ul>
+            </div>
+
+            <div class="cta-row">
+                <a class="btn btn-primary" href="./index.html">View Work</a>
+                <a class="btn btn-secondary" href="mailto:tkvisuth2084@gmail.com">Get in Touch</a>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+</body>
+</html>

@@ -1,37 +1,310 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>TK Visuthiwat – Portfolio</title>
-        <link rel="stylesheet" href="style/abb.css">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sight of Sound — TK Visuthiwat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    </head>
-    <body>
-        <header class="site-header">
-            <div class="logo">
-                <a href="./index.html">
-                <img src="./assets/images/logo/embroi.png" alt="TK Visuthiwat Logo" />
-                </a>
-              </div>
-            <nav class = "site-nav">
-                <a href = "./index.html">home</a>
-                <a href ="./projects.html">projects</a>
-                <a href="mailto:tkvisuth2084@gmail.com">contact</a>
-            </nav>
-        </header>
+        :root {
+            --bg: #ffffff;
+            --fg: #0a0a0a;
+            --muted: rgba(0,0,0,0.35);
+            --cue-width: 200px;
+        }
 
-        <main>
-            <video class="animation" autoplay loop muted playsinline preload="auto"> <source src="./assets/images/projects/sightofsound/ animation_sos.mp4" type="video/mp4"></video>
-            <div class="description">
-            <h1 class="project-name">Sight of Sound</h1>
-            <p class="project-description"><i>Sight of Sound</i> is a riso-printed animation interpreting Björk’s Heirloom through experimental visual rhythm. Working with sound as structure, I translated beats, vocals, and ambient textures into layered motion, color pulses, and hand-drawn forms. The project merges cultural motifs from my Thai and my partner’s Chinese backgrounds, creating a hybrid visual language that moves between sound, memory, and print-based animation.
- </p>
+        body {
+            background: var(--bg);
+            color: var(--fg);
+            font-family: 'Roboto Mono', monospace;
+            min-height: 100vh;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.35;
+        }
+
+        /* ── Header ── */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--fg);
+            background: var(--bg);
+        }
+
+        .logo a {
+            font-weight: 300;
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+            text-decoration: none;
+            color: var(--fg);
+        }
+
+        .site-nav a {
+            margin-left: 2rem;
+            font-size: 0.75rem;
+            font-weight: 300;
+            letter-spacing: 0.12em;
+            text-decoration: none;
+            color: var(--muted);
+            transition: color 0.15s;
+            position: relative;
+        }
+
+        .site-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; left: 0;
+            width: 0; height: 1px;
+            background: var(--fg);
+            transition: width 0.2s;
+        }
+
+        .site-nav a:hover { color: var(--fg); }
+        .site-nav a:hover::after { width: 100%; }
+
+        /* ── Cornell layout ── */
+        .cornell {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: var(--cue-width) 1fr;
+            min-height: calc(100vh - 57px);
+        }
+
+        .cornell::before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            left: var(--cue-width);
+            width: 1px;
+            background: rgba(0,0,0,0.15);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* ── Cue column ── */
+        .cue-col {
+            padding: 2.5rem 1.25rem 2.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            position: sticky;
+            top: 57px;
+            height: calc(100vh - 57px);
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+
+        .cue-col::-webkit-scrollbar { display: none; }
+
+        .cue-group { display: flex; flex-direction: column; gap: 0.4rem; }
+
+        .cue-label {
+            font-size: 0.58rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .cue-value {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--fg);
+            line-height: 1.5;
+        }
+
+        .cue-value.italic { font-style: italic; }
+
+        .cue-back {
+            font-size: 0.68rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: color 0.15s;
+            margin-top: auto;
+        }
+
+        .cue-back:hover { color: var(--fg); }
+
+        /* ── Notes column ── */
+        .notes-col {
+            padding: 2.5rem 3rem 5rem 2.5rem;
+        }
+
+        .project-title {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 2rem;
+        }
+
+        .project-desc {
+            font-size: 0.88rem;
+            font-weight: 300;
+            line-height: 1.9;
+            color: rgba(0,0,0,0.7);
+            max-width: 680px;
+            margin-bottom: 3rem;
+        }
+
+        .project-desc i { font-style: italic; color: var(--fg); }
+
+        .section-label {
+            font-size: 0.6rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.75rem;
+            margin-top: 2.5rem;
+            display: block;
+        }
+
+        .img-block {
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--fg);
+            overflow: hidden;
+        }
+
+        .img-block img,
+        .img-block video { width: 100%; display: block; }
+
+        .img-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .img-row .img-block { margin-bottom: 0; }
+
+        /* Responsive */
+        @media (max-width: 860px) {
+            :root { --cue-width: 140px; }
+            .notes-col { padding: 2rem 1.5rem 4rem; }
+            .img-row { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .cornell { grid-template-columns: 1fr; }
+            .cornell::before { display: none; }
+            .cue-col {
+                position: relative; top: 0; height: auto;
+                flex-direction: row; flex-wrap: wrap;
+                padding: 1.25rem 1.25rem 0; gap: 1.25rem;
+                border-bottom: 1px solid var(--fg);
+            }
+            .cue-back { display: none; }
+            .notes-col { padding: 1.5rem 1.25rem 3rem; }
+            .img-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="logo"><a href="./index.html">Napasorn (TK) Visuthiwat</a></div>
+    <nav class="site-nav">
+        <a href="./index.html">work</a>
+        <a href="./about.html">about</a>
+    </nav>
+</header>
+
+<div class="cornell">
+
+    <aside class="cue-col">
+        <div class="cue-group">
+            <span class="cue-label">Project</span>
+            <span class="cue-value italic">Sight of Sound</span>
+        </div>
+        <div class="cue-group">
+            <span class="cue-label">Type</span>
+            <span class="cue-value">Graphic + Motion</span>
+        </div>
+        <div class="cue-group">
+            <span class="cue-label">Year</span>
+            <span class="cue-value">2025</span>
+        </div>
+        <div class="cue-group">
+            <span class="cue-label">Medium</span>
+            <span class="cue-value">Risograph<br>Animation</span>
+        </div>
+        <div class="cue-group">
+            <span class="cue-label">Sound</span>
+            <span class="cue-value">Björk —<br>Heirloom</span>
+        </div>
+        <a class="cue-back" href="./index.html">← back to work</a>
+    </aside>
+
+    <main class="notes-col">
+
+        <h1 class="project-title">Sight of Sound</h1>
+
+        <p class="project-desc">
+            <i>Sight of Sound</i> is a riso-printed animation interpreting Björk's Heirloom through experimental visual rhythm. Working with sound as structure, I translated beats, vocals, and ambient textures into layered motion, color pulses, and hand-drawn forms. The project merges cultural motifs from my Thai and my partner's Chinese backgrounds, creating a hybrid visual language that moves between sound, memory, and print-based animation.
+        </p>
+
+        <p class="section-label">Animation</p>
+        <div class="img-block">
+            <video autoplay loop muted playsinline preload="auto">
+                <source src="./assets/images/projects/sightofsound/ animation_sos.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <p class="section-label">Posters</p>
+        <div class="img-row">
+            <div class="img-block">
+                <img src="./assets/images/projects/sightofsound/1.png" alt="Poster 1" />
             </div>
-            <img id="riso_pos1" src="./assets/images/projects/sightofsound/1.png" alt="sos_poster">
-            <img id="riso_pos2"src="./assets/images/projects/sightofsound/2.png" alt="poster2">
-            <img id="riso_pos3" src="./assets/images/projects/sightofsound/3.png" alt="poster3">
-            <video class="riso" autoplay loop muted playsinline preload="auto"> <source src="./assets/images/projects/sightofsound/ rido.mp4" type="video/mp4"></video>
-            
-       
-       
+            <div class="img-block">
+                <img src="./assets/images/projects/sightofsound/2.png" alt="Poster 2" />
+            </div>
+            <div class="img-block">
+                <img src="./assets/images/projects/sightofsound/3.png" alt="Poster 3" />
+            </div>
+        </div>
+
+        <p class="section-label">Riso Print</p>
+        <div class="img-block">
+            <video autoplay loop muted playsinline preload="auto">
+                <source src="./assets/images/projects/sightofsound/ rido.mp4" type="video/mp4">
+            </video>
+        </div>
+
+    </main>
+</div>
+
+</body>
+</html>

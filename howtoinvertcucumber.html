@@ -1,52 +1,345 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>TK Visuthiwat – Portfolio</title>
-        <link rel="stylesheet" href="style/abb.css">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thoughts on Thesis — TK Visuthiwat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    </head>
-    <body>
-        <header class="site-header">
-            <div class="logo">
-                <a href="./index.html">
-                <img src="./assets/images/logo/embroi.png" alt="TK Visuthiwat Logo" />
-                </a>
-              </div>
-            <nav class = "site-nav">
-                <a href = "./index.html">home</a>
-                <a href ="./projects.html">projects</a>
-                <a href="mailto:tkvisuth2084@gmail.com">contact</a>
-            </nav>
-        </header>
+        :root {
+            --bg: #ffffff;
+            --fg: #0a0a0a;
+            --muted: rgba(0,0,0,0.35);
+            --cue-width: 200px;
+        }
 
-        <main>
-            <img id="c_s" src="./assets/images/projects/thoughtonthesis/spread8.png" alt="cucumber_spread">
-            <div class="description">
-            <h1 class="project-name">Thoughts on Thesis</h1>
-            <p class="project-description"><i>Thoughts on Thesis</i>This project explores the intersection of my passion for design, mathematics, and crafts.
+        body {
+            background: var(--bg);
+            color: var(--fg);
+            font-family: 'Roboto Mono', monospace;
+            min-height: 100vh;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.35;
+        }
+
+        /* ── Header ── */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--fg);
+            background: var(--bg);
+        }
+
+        .logo a {
+            font-weight: 300;
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+            text-decoration: none;
+            color: var(--fg);
+        }
+
+        .site-nav a {
+            margin-left: 2rem;
+            font-size: 0.75rem;
+            font-weight: 300;
+            letter-spacing: 0.12em;
+            text-decoration: none;
+            color: var(--muted);
+            transition: color 0.15s;
+            position: relative;
+        }
+
+        .site-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; left: 0;
+            width: 0; height: 1px;
+            background: var(--fg);
+            transition: width 0.2s;
+        }
+
+        .site-nav a:hover { color: var(--fg); }
+        .site-nav a:hover::after { width: 100%; }
+
+        /* ── Cornell layout ── */
+        .cornell {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: var(--cue-width) 1fr;
+            min-height: calc(100vh - 57px);
+        }
+
+        .cornell::before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            left: var(--cue-width);
+            width: 1px;
+            background: rgba(0,0,0,0.15);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* ── Cue column ── */
+        .cue-col {
+            padding: 2.5rem 1.25rem 2.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            position: sticky;
+            top: 57px;
+            height: calc(100vh - 57px);
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+
+        .cue-col::-webkit-scrollbar { display: none; }
+
+        .cue-group { display: flex; flex-direction: column; gap: 0.4rem; }
+
+        .cue-label {
+            font-size: 0.58rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .cue-value {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--fg);
+            line-height: 1.5;
+        }
+
+        .cue-value.italic { font-style: italic; }
+
+        .cue-back {
+            font-size: 0.68rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: color 0.15s;
+            margin-top: auto;
+        }
+
+        .cue-back:hover { color: var(--fg); }
+
+        /* ── Notes column ── */
+        .notes-col {
+            padding: 2.5rem 3rem 5rem 2.5rem;
+        }
+
+        .project-title {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--fg);
+            padding-bottom: 1.5rem;
+        }
+
+        .project-desc {
+            font-size: 0.88rem;
+            font-weight: 300;
+            line-height: 1.9;
+            color: rgba(0,0,0,0.7);
+            max-width: 680px;
+            margin-bottom: 3rem;
+        }
+
+        .project-desc i { font-style: italic; color: var(--fg); }
+
+        .section-label {
+            font-size: 0.6rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.75rem;
+            margin-top: 2.5rem;
+            display: block;
+        }
+
+        .img-block {
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--fg);
+            overflow: hidden;
+        }
+
+        .img-block img { width: 100%; display: block; }
+
+        .img-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .img-row .img-block { margin-bottom: 0; }
+
+        .embed-block {
+            border: 1px solid var(--fg);
+            overflow: hidden;
+            margin-top: 0.75rem;
+        }
+
+        .embed-block iframe { display: block; }
+
+        /* Responsive */
+        @media (max-width: 860px) {
+            :root { --cue-width: 140px; }
+            .notes-col { padding: 2rem 1.5rem 4rem; }
+            .img-row { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .cornell { grid-template-columns: 1fr; }
+            .cornell::before { display: none; }
+            .cue-col {
+                position: relative; top: 0; height: auto;
+                flex-direction: row; flex-wrap: wrap;
+                padding: 1.25rem 1.25rem 0; gap: 1.25rem;
+                border-bottom: 1px solid var(--fg);
+            }
+            .cue-back { display: none; }
+            .notes-col { padding: 1.5rem 1.25rem 3rem; }
+            .img-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="logo"><a href="./index.html">Napasorn (TK) Visuthiwat</a></div>
+    <nav class="site-nav">
+        <a href="./index.html">work</a>
+        <a href="./about.html">about</a>
+    </nav>
+</header>
+
+<div class="cornell">
+
+    <aside class="cue-col">
+        <div class="cue-group">
+            <span class="cue-label">Project</span>
+            <span class="cue-value italic">Thoughts on Thesis</span>
+        </div>
+        <div class="cue-group">
+            <span class="cue-label">Type</span>
+            <span class="cue-value">Graphic + Editorial</span>
+        </div>
+        <div class="cue-group">
+            <span class="cue-label">Year</span>
+            <span class="cue-value">2025</span>
+        </div>
+        <div class="cue-group">
+            <span class="cue-label">Themes</span>
+            <span class="cue-value">Design<br>Mathematics<br>Craft</span>
+        </div>
+        <a class="cue-back" href="./index.html">← back to work</a>
+    </aside>
+
+    <main class="notes-col">
+
+        <h1 class="project-title">Thoughts on Thesis</h1>
+
+        <p class="project-desc">
+            <i>Thoughts on Thesis</i> explores the intersection of my passion for design, mathematics, and crafts.
+        </p>
+
+        <div class="img-block">
+            <img src="./assets/images/projects/thoughtonthesis/tot.png" alt="Cover" />
+        </div>
+
+        <p class="section-label">Research</p>
+        <div class="img-row">
+            <div class="img-block">
+                <img src="./assets/images/projects/thoughtonthesis/A_R.png" alt="Algorithmic stones" />
             </div>
-            <img id="cover_tot" src="./assets/images/projects/thoughtonthesis/tot.png" alt="cucumber_spread">
-            <img id="rocks" src="./assets/images/projects/thoughtonthesis/A_R.png" alt="alg_stones">
-            <img id="postit_1" src="./assets/images/projects/thoughtonthesis/1.png" alt="postit_1">
-            <img id="distort" src="./assets/images/projects/thoughtonthesis/B_L.png" alt="distort">
-            <img id="end_c" src="./assets/images/projects/thoughtonthesis/spread41.png" alt="cucumber">
-            
+        </div>
 
-             <img id="future" src="./assets/images/projects/thoughtonthesis/spread35.png" alt="prev">
-             <img id="collide" src="./assets/images/projects/thoughtonthesis/tot4.png" alt="prev">
-             <img id="xyz" src="./assets/images/projects/thoughtonthesis/spread12.png" alt="prev">
-             <img id="research" src="./assets/images/projects/thoughtonthesis/spread13.png" alt="prev">
-             <img id="xenakis" src="./assets/images/projects/thoughtonthesis/Xenakis.png" alt="prev">
-             <img id="credit" src="./assets/images/projects/thoughtonthesis/spread40.png" alt="prev">
-            <div class="prototype">
-            <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="100%" height="450" src="https://embed.figma.com/site/68PRur2v1Yu7Scck0yMlPb/Untitled?node-id=0-1&embed-host=share" allowfullscreen></iframe>
+        <div class="img-row">
+            <div class="img-block">
+                <img src="./assets/images/projects/thoughtonthesis/B_L.png" alt="Distortion" />
             </div>
-        </main>
-             
+            <div class="img-block">
+                <img src="./assets/images/projects/thoughtonthesis/spread41.png" alt="Spread" />
+            </div>
+        </div>
 
+        <p class="section-label">Spreads</p>
+        <div class="img-block">
+            <img src="./assets/images/projects/thoughtonthesis/spread35.png" alt="Spread 35" />
+        </div>
+        <div class="img-block">
+            <img src="./assets/images/projects/thoughtonthesis/tot4.png" alt="Tot 4" />
+        </div>
 
+        <div class="img-row">
+            <div class="img-block">
+                <img src="./assets/images/projects/thoughtonthesis/spread12.png" alt="Spread 12" />
+            </div>
+            <div class="img-block">
+                <img src="./assets/images/projects/thoughtonthesis/spread13.png" alt="Spread 13" />
+            </div>
+        </div>
 
+        <div class="img-row">
+            <div class="img-block">
+                <img src="./assets/images/projects/thoughtonthesis/Xenakis.png" alt="Xenakis" />
+            </div>
+            <div class="img-block">
+                <img src="./assets/images/projects/thoughtonthesis/spread40.png" alt="Spread 40" />
+            </div>
+        </div>
 
-            
+        <p class="section-label">Prototype</p>
+        <div class="embed-block">
+            <iframe
+                    style="border: none;"
+                    width="100%"
+                    height="450"
+                    src="https://embed.figma.com/site/68PRur2v1Yu7Scck0yMlPb/Untitled?node-id=0-1&embed-host=share"
+                    allowfullscreen>
+            </iframe>
+        </div>
+
+    </main>
+</div>
+
+</body>
+</html>
