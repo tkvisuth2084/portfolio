@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #ffffff;
+            --fg: #0a0a0a;
+            --accent1: #ff4d1c;
+            --accent2: #ffd60a;
+            --accent3: #0af5c8;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--fg);
+            font-family: 'Roboto Mono', monospace;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 200;
+            opacity: 0.35;
+        }
+
+        /* Subtle grid background */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── Header ── */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--fg);
+            background: var(--bg);
+        }
+
+        .logo img {
+            width: 60px;
+            height: auto;
+            display: block;
+        }
+
+        .site-nav a {
+            margin-left: 2rem;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            color: var(--fg);
+            transition: color 0.15s;
+        }
+
+        .site-nav a:hover { color: var(--accent1); }
+
+        /* ── Main content ── */
+        main {
+            position: relative;
+            z-index: 1;
+            padding: 4rem 3rem 6rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* ── Page title ── */
+        .section-title {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 700;
+            font-size: clamp(2rem, 5vw, 4rem);
+            letter-spacing: -0.02em;
+            color: var(--fg);
+            margin-bottom: 3rem;
+        }
+
+        /* ── Project grid ── */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* ── Project card ── */
+        .project-card {
+            display: block;
+            background: var(--bg);
+            border: 1px solid var(--fg);
+            text-decoration: none;
+            color: var(--fg);
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 4px 4px 0px var(--fg);
+        }
+
+        .project-card img,
+        .project-card video {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            display: block;
+        }
+
+        .project-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            border-top: 1px solid var(--fg);
+        }
+
+        .proj-title {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--fg);
+            flex: 1;
+        }
+
+        .proj-type,
+        .proj-year {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 300;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(0,0,0,0.45);
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header class="site-header">
+    <div class="logo">
+        <a href="./index.html">
+            <img src="./assets/images/logo/embroi.png" alt="YOUR_NAME Logo" />
+        </a>
+    </div>
+    <nav class="site-nav">
+        <a href="./index.html">home</a>
+        <a href="./projects.html">projects</a>
+        <a href="mailto:tkvisuth2084@gmail.com">contact</a>
+    </nav>
+</header>
+
+<!-- ── Content ── -->
+<main>
+    <h1 class="section-title">Projects</h1>
+
+    <div class="project-grid">
+
+        <!-- 1 -->
+        <a class="project-card" href="./howtoinvertcucumber.html">
+            <img src="./assets/images/projects/thoughtonthesis/spread35.png" alt="How to Invert a Cucumber" />
+            <div class="project-info">
+                <span class="proj-title">Thoughts on Thesis</span>
+                <span class="proj-type">Graphic + Editorial</span>
+                <span class="proj-year">2025</span>
+            </div>
+        </a>
+
+        <!-- 2 -->
+        <a class="project-card" href="./sightofsound.html">
+            <img src="./assets/images/projects/sightofsound/1.png" alt="Sight of Sound" />
+            <div class="project-info">
+                <span class="proj-title">Sight of Sound</span>
+                <span class="proj-type">Graphic + Motion</span>
+                <span class="proj-year">2025</span>
+            </div>
+        </a>
+
+        <!-- 3 -->
+        <a class="project-card" href="./catalogofinfluences.html">
+            <img src="./assets/images/projects/catalogofinfluences/naturegreenbg.jpg" alt="Catalog of Influences" />
+            <div class="project-info">
+                <span class="proj-title">Catalog of Influences</span>
+                <span class="proj-type">Editorial</span>
+                <span class="proj-year">2025</span>
+            </div>
+        </a>
+
+        <!-- 4 -->
+        <a class="project-card" href="./breadandbutter.html">
+            <img src="./assets/images/projects/b&b/thumbnail.png" alt="Bread & Butter Restaurant" />
+            <div class="project-info">
+                <span class="proj-title">Bread & Butter Restaurant</span>
+                <span class="proj-type">Branding</span>
+                <span class="proj-year">2024</span>
+            </div>
+        </a>
+
+        <!-- 5 -->
+        <a class="project-card" href="./artbeyondbars.html">
+            <img src="./assets/images/projects/artbeyondbar.jpg" alt="Art Beyond Bars" />
+            <div class="project-info">
+                <span class="proj-title">Art Beyond Bars</span>
+                <span class="proj-type">Branding</span>
+                <span class="proj-year">2025</span>
+            </div>
+        </a>
+
+        <!-- 6 -->
+        <a class="project-card" href="./findbite.html">
+            <img src="./assets/images/projects/findbite/ux.png" alt="Find Bite" />
+            <div class="project-info">
+                <span class="proj-title">Find Bite</span>
+                <span class="proj-type">UX/UI</span>
+                <span class="proj-year">2025</span>
+            </div>
+        </a>
+
+        <!-- 7 -->
+        <a class="project-card" href="./iloveihate.html">
+            <img src="./assets/images/projects/ihate.jpg" alt="I love / I hate routine" />
+            <div class="project-info">
+                <span class="proj-title">I love / I hate routine</span>
+                <span class="proj-type">Poster Design</span>
+                <span class="proj-year">2025</span>
+            </div>
+        </a>
+
+
+
+    </div>
+</main>
+
+</body>
+</html>

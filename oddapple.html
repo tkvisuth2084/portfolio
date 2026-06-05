@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Odd Apples — TK Visuthiwat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #ffffff;
+            --fg: #0a0a0a;
+            --muted: rgba(0,0,0,0.35);
+            --cue-width: 200px;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--fg);
+            font-family: 'Roboto Mono', monospace;
+            min-height: 100vh;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.35;
+        }
+
+        /* ── Header ── */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--fg);
+            background: var(--bg);
+        }
+
+        .logo a {
+            font-weight: 300;
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+            text-decoration: none;
+            color: var(--fg);
+        }
+
+        .site-nav a {
+            margin-left: 2rem;
+            font-size: 0.75rem;
+            font-weight: 300;
+            letter-spacing: 0.12em;
+            text-decoration: none;
+            color: var(--muted);
+            transition: color 0.15s;
+            position: relative;
+        }
+
+        .site-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; left: 0;
+            width: 0; height: 1px;
+            background: var(--fg);
+            transition: width 0.2s;
+        }
+
+        .site-nav a:hover { color: var(--fg); }
+        .site-nav a:hover::after { width: 100%; }
+
+        /* ── Cornell layout ── */
+        .cornell {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: var(--cue-width) 1fr;
+            min-height: calc(100vh - 57px);
+        }
+
+        .cornell::before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            left: var(--cue-width);
+            width: 1px;
+            background: rgba(0,0,0,0.15);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* ── Cue column ── */
+        .cue-col {
+            padding: 2.5rem 1.25rem 2.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            position: sticky;
+            top: 57px;
+            height: calc(100vh - 57px);
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+
+        .cue-col::-webkit-scrollbar { display: none; }
+        .cue-group { display: flex; flex-direction: column; gap: 0.4rem; }
+
+        .cue-label {
+            font-size: 0.58rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .cue-value {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--fg);
+            line-height: 1.5;
+        }
+
+        .cue-value.italic { font-style: italic; }
+
+        .cue-back {
+            font-size: 0.68rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: color 0.15s;
+            margin-top: auto;
+        }
+
+        .cue-back:hover { color: var(--fg); }
+
+        /* ── Notes column ── */
+        .notes-col {
+            padding: 2.5rem 3rem 5rem 2.5rem;
+        }
+
+        .project-title {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 2rem;
+        }
+
+        .project-desc {
+            font-size: 0.88rem;
+            font-weight: 300;
+            line-height: 1.9;
+            color: rgba(0,0,0,0.7);
+            max-width: 680px;
+            margin-bottom: 3rem;
+        }
+
+        .project-desc i { font-style: italic; color: var(--fg); }
+
+        .section-label {
+            font-size: 0.6rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.75rem;
+            margin-top: 2.5rem;
+            display: block;
+        }
+
+        .img-block {
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--fg);
+            overflow: hidden;
+            line-height: 0;
+            font-size: 0;
+        }
+
+        .img-block img { width: 100%; display: block; vertical-align: bottom; line-height: 0; }
+
+        .img-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            align-items: start;
+        }
+
+        .img-row .img-block { margin-bottom: 0; }
+
+        .img-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            align-items: start;
+        }
+
+        .img-row-3 .img-block { margin-bottom: 0; }
+
+        /* pull quote */
+        .pull-quote {
+            font-size: 1rem;
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.7;
+            color: var(--fg);
+            border-left: 2px solid var(--fg);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            max-width: 580px;
+        }
+
+        /* Responsive */
+        @media (max-width: 860px) {
+            :root { --cue-width: 140px; }
+            .notes-col { padding: 2rem 1.5rem 4rem; }
+            .img-row-3 { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .cornell { grid-template-columns: 1fr; }
+            .cornell::before { display: none; }
+            .cue-col {
+                position: relative; top: 0; height: auto;
+                flex-direction: row; flex-wrap: wrap;
+                padding: 1.25rem 1.25rem 0; gap: 1.25rem;
+                border-bottom: 1px solid var(--fg);
+            }
+            .cue-back { display: none; }
+            .notes-col { padding: 1.5rem 1.25rem 3rem; }
+            .img-row, .img-row-3 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="logo"><a href="./index.html">Napasorn (TK) Visuthiwat</a></div>
+    <nav class="site-nav">
+        <a href="./index.html">work</a>
+        <a href="./about.html">about</a>
+    </nav>
+</header>
+
+<div class="cornell">
+
+    <aside class="cue-col">
+        <div class="cue-group">
+            <span class="cue-label">Project</span>
+            <span class="cue-value italic">Odd Apples</span>
+        </div>
+        <div class="cue-group">
+            <span class="cue-label">Type</span>
+            <span class="cue-value">Branding +<br>Editorial</span>
+        </div>
+        <div class="cue-group">
+            <span class="cue-label">Year</span>
+            <span class="cue-value">2025</span>
+        </div>
+        <div class="cue-group">
+            <span class="cue-label">Theme</span>
+            <span class="cue-value">Body Positivity<br>Impact & Empathy</span>
+        </div>
+        <div class="cue-group">
+            <span class="cue-label">Deliverables</span>
+            <span class="cue-value">Photobooks<br>Posters<br>Installation</span>
+        </div>
+        <a class="cue-back" href="./index.html">← back to work</a>
+    </aside>
+
+    <main class="notes-col">
+
+        <h1 class="project-title">Odd Apples</h1>
+
+        <p class="project-desc">
+            <i>Odd Apples</i> is a body positivity brand that uses fruit as a metaphor for the human body — not just its shape, but its layers, texture, and function. Rather than celebrating how bodies look, the project asks a different question: what if we celebrated what our bodies <i>do</i>? Fruits protect, grow, and nourish. So do we.
+        </p>
+
+        <div class="img-block">
+            <img src="./assets/images/projects/oddapples/installation.JPG" alt="Odd Apples installation" />
+        </div>
+
+        <p class="section-label">Posters — Body Functionality Series</p>
+        <p class="project-desc" style="margin-bottom:1.5rem;">
+            Four posters celebrating what the body does — lungs that breathe, a heart that beats, a brain that thinks, a stomach that digests. Each organ is paired with fruit motifs and set in Fractal Stem.
+        </p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-bottom:1.5rem;align-items:start;">
+            <div>
+                <img src="./assets/images/projects/oddapples/tummy_poster.jpg" alt="Tummy poster" style="width:100%;display:block;border:1px solid #0a0a0a;" />
+            </div>
+            <div>
+                <img src="./assets/images/projects/oddapples/lung_poster.jpg" alt="Lung poster" style="width:100%;display:block;border:1px solid #0a0a0a;" />
+            </div>
+            <div>
+                <img src="./assets/images/projects/oddapples/heart_poster.jpg" alt="Heart poster" style="width:100%;display:block;border:1px solid #0a0a0a;" />
+            </div>
+            <div>
+                <img src="./assets/images/projects/oddapples/brain_poster.jpg" alt="Brain poster" style="width:100%;display:block;border:1px solid #0a0a0a;" />
+            </div>
+        </div>
+
+        <p class="section-label">Concept</p>
+        <p class="pull-quote">
+            "By reframing fruit through both function and form, Odd Apples encourages a more grounded kind of body positivity — one that values what the body does, not just how it looks."
+        </p>
+
+        <div class="img-block">
+            <img src="./assets/images/projects/oddapples/fruits.jpg" alt="Fruits carved into geometric forms" />
+        </div>
+
+        <p class="section-label">Photography</p>
+        <div class="img-block">
+            <img src="./assets/images/projects/oddapples/apple.jpg" alt="Apple pieces" />
+        </div>
+        <div class="img-row">
+            <div class="img-block">
+                <img src="./assets/images/projects/oddapples/strawberries.jpg" alt="Strawberries" />
+            </div>
+            <div class="img-block">
+                <img src="./assets/images/projects/oddapples/strawberries2.jpg" alt="Strawberries 2" />
+            </div>
+        </div>
+
+        <p class="section-label">Photobooks — Peel Back</p>
+        <p class="project-desc" style="margin-bottom:1.5rem;">
+            Small fruit books built around the concept of <i>peeling back</i> — the further you flip through the pages, the deeper you peel into the fruit, eventually revealing its core. A reminder to look inward.
+        </p>
+
+        <div class="img-row">
+            <div class="img-block">
+                <img src="./assets/images/projects/oddapples/apple_book.jpg" alt="Apple book" />
+            </div>
+            <div class="img-block">
+                <img src="./assets/images/projects/oddapples/straw_book.jpg" alt="Strawberry book" />
+            </div>
+        </div>
+
+        <div class="img-row">
+            <div class="img-block">
+                <img src="./assets/images/projects/oddapples/banana_book.jpg" alt="Banana book" />
+            </div>
+            <div class="img-block">
+                <img src="./assets/images/projects/oddapples/banana_book_2.jpg" alt="Banana book open" />
+            </div>
+        </div>
+
+        <p class="section-label">Magazine — Issue One: Peel Back</p>
+        <div class="img-block">
+            <img src="./assets/images/projects/oddapples/mag_spread.jpg" alt="Magazine spread" />
+        </div>
+        <div class="img-row">
+            <div class="img-block">
+                <img src="./assets/images/projects/oddapples/mag_apple.jpg" alt="Magazine apple" />
+            </div>
+            <div class="img-block">
+                <img src="./assets/images/projects/oddapples/mag_ras.jpg" alt="Magazine raspberries" />
+            </div>
+        </div>
+
+    </main>
+</div>
+
+</body>
+</html>

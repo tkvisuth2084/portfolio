@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How to Weave a Cucumber — TK Visuthiwat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --bg: #ffffff; --fg: #0a0a0a; --muted: rgba(0,0,0,0.35); --cue-width: 200px; }
+        body { background: var(--bg); color: var(--fg); font-family: 'Roboto Mono', monospace; min-height: 100vh; }
+        body::after { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
+        body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; opacity: 0.35; }
+        .site-header { position: sticky; top: 0; z-index: 50; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; border-bottom: 1px solid var(--fg); background: var(--bg); }
+        .logo a { font-weight: 300; font-size: 0.78rem; letter-spacing: 0.04em; text-decoration: none; color: var(--fg); }
+        .site-nav a { margin-left: 2rem; font-size: 0.75rem; font-weight: 300; letter-spacing: 0.12em; text-decoration: none; color: var(--muted); transition: color 0.15s; position: relative; }
+        .site-nav a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: var(--fg); transition: width 0.2s; }
+        .site-nav a:hover { color: var(--fg); }
+        .site-nav a:hover::after { width: 100%; }
+        .cornell { position: relative; z-index: 1; display: grid; grid-template-columns: var(--cue-width) 1fr; min-height: calc(100vh - 57px); }
+        .cornell::before { content: ''; position: absolute; top: 0; bottom: 0; left: var(--cue-width); width: 1px; background: rgba(0,0,0,0.15); pointer-events: none; z-index: 2; }
+        .cue-col { padding: 2.5rem 1.25rem 2.5rem 2rem; display: flex; flex-direction: column; gap: 1.5rem; position: sticky; top: 57px; height: calc(100vh - 57px); overflow-y: auto; scrollbar-width: none; }
+        .cue-col::-webkit-scrollbar { display: none; }
+        .cue-group { display: flex; flex-direction: column; gap: 0.4rem; }
+        .cue-label { font-size: 0.58rem; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+        .cue-value { font-size: 0.75rem; font-weight: 400; color: var(--fg); line-height: 1.5; }
+        .cue-value.italic { font-style: italic; }
+        .cue-back { font-size: 0.68rem; font-weight: 300; letter-spacing: 0.1em; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.15s; margin-top: auto; }
+        .cue-back:hover { color: var(--fg); }
+        .notes-col { padding: 2.5rem 3rem 5rem 2.5rem; }
+        .project-title { font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.5rem; }
+        .project-subtitle { font-size: 0.75rem; font-weight: 300; font-style: italic; color: var(--muted); margin-bottom: 2rem; }
+        .project-desc { font-size: 0.88rem; font-weight: 300; line-height: 1.9; color: rgba(0,0,0,0.7); max-width: 680px; margin-bottom: 3rem; }
+        .project-desc i { font-style: italic; color: var(--fg); }
+        .section-header { font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; color: var(--fg); margin-top: 3rem; margin-bottom: 1.5rem; display: block; }
+        .sub-header { font-size: 0.65rem; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fg); margin-top: 1.5rem; margin-bottom: 0.75rem; display: block; }
+        .img-block { margin-bottom: 1.5rem; border: 1px solid var(--fg); overflow: hidden; line-height: 0; font-size: 0; }
+        .img-block img, .img-block video { width: 100%; display: block; vertical-align: bottom; }
+        .img-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; align-items: start; }
+        .img-row .img-block { margin-bottom: 0; }
+        .img-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; align-items: start; }
+        .img-row-3 .img-block { margin-bottom: 0; }
+        .img-row-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; align-items: start; }
+        .img-row-4 .img-block { margin-bottom: 0; }
+        .remainder-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; align-items: start; }
+        .remainder-row .img-block { margin-bottom: 0; }
+        .remainder-row-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; align-items: start; }
+        .remainder-row-4 .img-block { margin-bottom: 0; }
+        .embed-block { border: 1px solid var(--fg); overflow: hidden; margin-bottom: 1.5rem; }
+        .embed-block iframe { display: block; }
+        .project-nav { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 2rem; border-top: 1px solid var(--fg); background: var(--bg); }
+        .project-nav a { font-size: 0.68rem; font-weight: 300; letter-spacing: 0.12em; text-decoration: none; color: var(--muted); display: flex; align-items: center; gap: 0.6rem; transition: color 0.15s; }
+        .project-nav a:hover { color: var(--fg); }
+        .project-nav .nav-label { font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; display: block; margin-bottom: 0.2rem; }
+        .project-nav .nav-title { font-size: 0.75rem; font-weight: 700; color: var(--fg); }
+        .project-nav .spacer { flex: 1; }
+        @media (max-width: 860px) { :root { --cue-width: 140px; } .notes-col { padding: 2rem 1.5rem 4rem; } .img-row-3, .img-row-4, .remainder-row, .remainder-row-4 { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 600px) { .cornell { grid-template-columns: 1fr; } .cornell::before { display: none; } .cue-col { position: relative; top: 0; height: auto; flex-direction: row; flex-wrap: wrap; padding: 1.25rem 1.25rem 0; gap: 1.25rem; border-bottom: 1px solid var(--fg); } .cue-back { display: none; } .notes-col { padding: 1.5rem 1.25rem 3rem; } .img-row, .img-row-3, .img-row-4, .remainder-row, .remainder-row-4 { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="logo"><a href="./index.html">Napasorn (TK) Visuthiwat</a></div>
+    <nav class="site-nav">
+        <a href="./index.html">work</a>
+        <a href="./about.html">about</a>
+    </nav>
+</header>
+
+<div class="cornell">
+    <aside class="cue-col">
+        <div class="cue-group">
+            <span class="cue-label">Project</span>
+            <span class="cue-value italic">How to Weave a Cucumber</span>
+        </div>
+        <div class="cue-group">
+            <span class="cue-label">Type</span>
+            <span class="cue-value">Graphic + Editorial</span>
+        </div>
+        <div class="cue-group">
+            <span class="cue-label">Year</span>
+            <span class="cue-value">2025</span>
+        </div>
+        <div class="cue-group">
+            <span class="cue-label">Pages</span>
+            <span class="cue-value">172</span>
+        </div>
+        <a class="cue-back" href="./index.html">← back to work</a>
+    </aside>
+
+    <main class="notes-col">
+
+        <h1 class="project-title">How to Weave a Cucumber</h1>
+        <p class="project-subtitle">A thesis book — 172 pages</p>
+
+        <p class="project-desc">
+            <i>How to weave a cucumber</i> begins with something personal. Cucumber is my nickname in Thai — a symbol of organic form and growth. This thesis investigates the relationship between the logic of mathematics and the intricacy of craft, two disciplines often perceived as polar opposites. Through material experimentation, creative coding, and manual execution, systematic designs are represented in organic ways and traditional crafts are reinterpreted through mathematical frameworks. Logic and expression become intertwined. The system and the soul coexist.
+        </p>
+
+        <h2 class="section-header">Method + Prompt Map</h2>
+        <div class="img-block">
+            <img src="./assets/images/projects/Thesis/book/thesisbook6.png" alt="Keywords Map and Prompt Map" />
+        </div>
+
+        <h2 class="section-header">Research + Sketches</h2>
+        <div class="img-block" style="max-width: 580px; margin: 0 auto 1.5rem;">
+            <img src="./assets/images/projects/Thesis/research/note1.jpg" alt="Research sketches 1" />
+        </div>
+        <div class="img-block" style="max-width: 580px; margin: 0 auto 1.5rem;">
+            <img src="./assets/images/projects/Thesis/research/note2.jpg" alt="Research sketches 2" />
+        </div>
+
+        <!-- Addition -->
+        <h2 class="section-header">Addition — (x + y) mod 3</h2>
+        <div class="img-block" style="max-width: 360px; margin: 0 auto;">
+            <img src="./assets/images/projects/Thesis/medium1/pdf2png/addition/addition-1.png" alt="Addition overview" />
+        </div>
+        <span class="sub-header">Remainders</span>
+        <div class="remainder-row" style="max-width: 700px; margin: 0 auto;">
+            <div>
+                <div class="img-block"><img src="./assets/images/projects/Thesis/medium1/pdf2png/0_+/0_+-1.png" alt="Remainder 0" /></div>
+                <span class="sub-header" style="margin-top:0.4rem;">remainder = 0</span>
+            </div>
+            <div>
+                <div class="img-block"><img src="./assets/images/projects/Thesis/medium1/pdf2png/1_+/1_+-1.png" alt="Remainder 1" /></div>
+                <span class="sub-header" style="margin-top:0.4rem;">remainder = 1</span>
+            </div>
+            <div>
+                <div class="img-block"><img src="./assets/images/projects/Thesis/medium1/pdf2png/2_+/2_+-1.png" alt="Remainder 2" /></div>
+                <span class="sub-header" style="margin-top:0.4rem;">remainder = 2</span>
+            </div>
+        </div>
+
+        <!-- Multiplication -->
+        <h2 class="section-header">Multiplication — (x × y) mod 3</h2>
+        <div class="img-block" style="max-width: 360px; margin: 0 auto;">
+            <img src="./assets/images/projects/Thesis/medium1/pdf2png/multiplication/multiplication-1.png" alt="Multiplication overview" />
+        </div>
+        <span class="sub-header">Remainders</span>
+        <div class="remainder-row" style="max-width: 700px; margin: 0 auto;">
+            <div>
+                <div class="img-block"><img src="./assets/images/projects/Thesis/medium1/pdf2png/0_*/0_*-1.png" alt="Remainder 0" /></div>
+                <span class="sub-header" style="margin-top:0.4rem;">remainder = 0</span>
+            </div>
+            <div>
+                <div class="img-block"><img src="./assets/images/projects/Thesis/medium1/pdf2png/1_*/1_*-1.png" alt="Remainder 1" /></div>
+                <span class="sub-header" style="margin-top:0.4rem;">remainder = 1</span>
+            </div>
+            <div>
+                <div class="img-block"><img src="./assets/images/projects/Thesis/medium1/pdf2png/2_*/2_*-1.png" alt="Remainder 2" /></div>
+                <span class="sub-header" style="margin-top:0.4rem;">remainder = 2</span>
+            </div>
+        </div>
+
+        <!-- Distance Formula -->
+        <h2 class="section-header">Distance Formula — √(x² + y²) mod 4</h2>
+        <div class="img-block" style="max-width: 360px; margin: 0 auto;">
+            <img src="./assets/images/projects/Thesis/medium1/pdf2png/distance/distance-1.png" alt="Distance overview" />
+        </div>
+        <span class="sub-header">Remainders</span>
+        <div class="remainder-row-4" style="max-width: 900px; margin: 0 auto;">
+            <div>
+                <div class="img-block"><img src="./assets/images/projects/Thesis/medium1/pdf2png/0_d/0_d-1.png" alt="Remainder 0" /></div>
+                <span class="sub-header" style="margin-top:0.4rem;">remainder = 0</span>
+            </div>
+            <div>
+                <div class="img-block"><img src="./assets/images/projects/Thesis/medium1/pdf2png/1_d/1_d-1.png" alt="Remainder 1" /></div>
+                <span class="sub-header" style="margin-top:0.4rem;">remainder = 1</span>
+            </div>
+            <div>
+                <div class="img-block"><img src="./assets/images/projects/Thesis/medium1/pdf2png/2_d/2_d-1.png" alt="Remainder 2" /></div>
+                <span class="sub-header" style="margin-top:0.4rem;">remainder = 2</span>
+            </div>
+            <div>
+                <div class="img-block"><img src="./assets/images/projects/Thesis/medium1/pdf2png/3_d/3_d-1.png" alt="Remainder 3" /></div>
+                <span class="sub-header" style="margin-top:0.4rem;">remainder = 3</span>
+            </div>
+        </div>
+
+        <!-- Modular Arithmetic Pattern Website -->
+        <h2 class="section-header">Modular Arithmetic Pattern Website</h2>
+        <div class="img-block">
+            <video autoplay loop muted playsinline preload="auto">
+                <source src="./assets/images/projects/Thesis/medium1/thesis_compressed.mp4" type="video/mp4">
+            </video>
+        </div>
+        <h4 class="section-header">Features</h4>
+        <div class="img-row-3" style="margin-bottom: 2rem;">
+            <div>
+                <div class="img-block"><img src="./assets/images/projects/Thesis/medium1/website/live_calculation.png" alt="Live Calculation" style="height: 180px; object-fit: contain; background: #fafafa;" /></div>
+                <span class="sub-header" style="margin-top: 0.4rem;">Live Calculation</span>
+            </div>
+            <div>
+                <div class="img-block"><img src="./assets/images/projects/Thesis/medium1/website/gridcolor.png" alt="Grid Color" style="height: 180px; object-fit: contain; background: #fafafa;" /></div>
+                <span class="sub-header" style="margin-top: 0.4rem;">Grid Color</span>
+            </div>
+            <div>
+                <div class="img-block"><img src="./assets/images/projects/Thesis/medium1/website/rules.png" alt="Rules" style="height: 180px; object-fit: contain; background: #fafafa;" /></div>
+                <span class="sub-header" style="margin-top: 0.4rem;">Rules</span>
+            </div>
+        </div>
+        <div class="img-row-3" style="margin-bottom: 2rem;">
+            <div>
+                <div class="img-block"><img src="./assets/images/projects/Thesis/medium1/website/grid%20size.jpg" alt="Grid Size" style="height: 180px; object-fit: contain; background: #fafafa;" /></div>
+                <span class="sub-header" style="margin-top: 0.4rem;">Grid Size</span>
+            </div>
+            <div>
+                <div class="img-block"><img src="./assets/images/projects/Thesis/medium1/website/camera.png" alt="Camera" style="height: 180px; object-fit: contain; background: #fafafa;" /></div>
+                <span class="sub-header" style="margin-top: 0.4rem;">Camera</span>
+            </div>
+            <div></div>
+        </div>
+        <div style="margin-bottom: 2rem;">
+            <div class="img-block"><img src="./assets/images/projects/Thesis/medium1/website/designs.png" alt="designs" /></div>
+            <span class="sub-header" style="margin-top: 0.4rem;">Design Library</span>
+        </div>
+        <div class="embed-block">
+            <iframe
+                    src="https://modularpattern-s8op.vercel.app/"
+                    width="100%"
+                    height="900"
+                    style="border: none;"
+                    allowfullscreen>
+            </iframe>
+        </div>
+        <span class="sub-header" style="margin-top: 0.5rem;">↑ Live website — <a href="https://modularpattern-s8op.vercel.app/" target="_blank" style="color: var(--fg); text-decoration: underline;">open in new tab</a></span>
+
+        <h2 class="section-header">Medium 2</h2>
+        <!-- Add medium2 images here -->
+
+        <h2 class="section-header">Installation</h2>
+        <!-- Add installation images here -->
+        <div class="img-row-4" style="max-width: 500px; margin: 0 auto;">
+            <div class="img-block"><img src="./assets/images/projects/Thesis/add_patterns/add-pattern(5).png" alt="Add pattern 5" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/add_patterns/add-pattern(6).png" alt="Add pattern 6" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/add_patterns/add-pattern(7).png" alt="Add pattern 7" /></div>
+        </div>
+
+    </main>
+</div>
+
+<nav class="project-nav">
+    <span></span>
+    <span class="spacer"></span>
+    <a href="./artbeyondbars.html">
+        <div style="text-align:right"><span class="nav-label">Next</span><span class="nav-title">Art Beyond Bars</span></div> →
+    </a>
+</nav>
+
+</body>
+</html>
