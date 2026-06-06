@@ -40,6 +40,14 @@
         .embed-block iframe { display: block; }
         @media (max-width: 860px) { :root { --cue-width: 140px; } .notes-col { padding: 2rem 1.5rem 4rem; } }
         @media (max-width: 600px) { .cornell { grid-template-columns: 1fr; } .cornell::before { display: none; } .cue-col { position: relative; top: 0; height: auto; flex-direction: row; flex-wrap: wrap; padding: 1.25rem 1.25rem 0; gap: 1.25rem; border-bottom: 1px solid var(--fg); } .cue-back { display: none; } .notes-col { padding: 1.5rem 1.25rem 3rem; } .img-row { grid-template-columns: 1fr; } }
+
+        /* ── Project nav ── */
+        .project-nav { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 2rem; border-top: 1px solid var(--fg); background: var(--bg); }
+        .project-nav a { font-size: 0.68rem; font-weight: 300; letter-spacing: 0.12em; text-decoration: none; color: var(--muted); display: flex; align-items: center; gap: 0.6rem; transition: color 0.15s; }
+        .project-nav a:hover { color: var(--fg); }
+        .project-nav .nav-label { font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; display: block; margin-bottom: 0.2rem; }
+        .project-nav .nav-title { font-size: 0.75rem; font-weight: 700; color: var(--fg); }
+        .project-nav .spacer { flex: 1; }
     </style>
 </head>
 <body>
@@ -78,7 +86,8 @@
         <h1 class="project-title">Thoughts on Thesis</h1>
 
         <p class="project-desc">
-            <i>Thoughts on Thesis</i> is a pre-thesis research book exploring the intersection of mathematics and craft. The starting point is personal: Cucumber is my nickname in Thai. I wanted to explore what happens when something soft and organic meets something rigid and logical. This book is where I started to figure out what my thesis could actually be.
+            <i>Thoughts on Thesis</i> is a pre-thesis research book exploring the intersection of mathematics and craft. I experimented with translating mathematical rules and algorithms into visual patterns — asking what it looks like when a logical system becomes something handmade.
+        </p>
 
         <p class="section-label">Research</p>
         <div class="img-block" style="max-width: 600px; margin: 0 auto 1.5rem;">
@@ -137,5 +146,15 @@
     </main>
 </div>
 
+
+<nav class="project-nav">
+    <a href="./howtoweavecucumber.html">
+        ← <div><span class="nav-label">Previous</span><span class="nav-title">How to Weave a Cucumber</span></div>
+    </a>
+    <span class="spacer"></span>
+    <a href="./sightofsound.html">
+        <div style="text-align:right"><span class="nav-label">Next</span><span class="nav-title">Sight of Sound</span></div> →
+    </a>
+</nav>
 </body>
 </html>

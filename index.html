@@ -7,284 +7,42 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; cursor: crosshair; }
-
-        :root {
-            --bg: #ffffff;
-            --fg: #0a0a0a;
-            --muted: rgba(0,0,0,0.35);
-        }
-
-        body {
-            background: var(--bg);
-            color: var(--fg);
-            font-family: 'Roboto Mono', monospace;
-            min-height: 100vh;
-            cursor: crosshair;
-        }
-
-        /* Graph paper */
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image:
-                    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
-            background-size: 60px 60px;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Grain */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.35;
-        }
-
-        /* ── Header ── */
-        .site-header {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            border-bottom: 1px solid var(--fg);
-            background: var(--bg);
-        }
-
-        .logo a {
-            font-weight: 300;
-            font-size: 0.78rem;
-            letter-spacing: 0.04em;
-            text-decoration: none;
-            color: var(--fg);
-        }
-
-        .site-nav a {
-            margin-left: 2rem;
-            font-size: 0.75rem;
-            font-weight: 300;
-            letter-spacing: 0.12em;
-            text-decoration: none;
-            color: var(--muted);
-            transition: color 0.15s;
-            position: relative;
-        }
-
-        .site-nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px; left: 0;
-            width: 0; height: 1px;
-            background: var(--fg);
-            transition: width 0.2s;
-        }
-
-        .site-nav a:hover,
-        .site-nav a.active { color: var(--fg); }
-        .site-nav a.active::after,
-        .site-nav a:hover::after { width: 100%; }
-
-        /* ── Filter sidebar ── */
+        :root { --bg: #ffffff; --fg: #0a0a0a; --muted: rgba(0,0,0,0.35); }
+        body { background: var(--bg); color: var(--fg); font-family: 'Roboto Mono', monospace; min-height: 100vh; cursor: crosshair; }
+        body::after { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
+        body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; opacity: 0.35; }
+        .site-header { position: sticky; top: 0; z-index: 50; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; border-bottom: 1px solid var(--fg); background: var(--bg); }
+        .logo a { font-weight: 300; font-size: 0.78rem; letter-spacing: 0.04em; text-decoration: none; color: var(--fg); }
+        .site-nav a { margin-left: 2rem; font-size: 0.75rem; font-weight: 300; letter-spacing: 0.12em; text-decoration: none; color: var(--muted); transition: color 0.15s; position: relative; }
+        .site-nav a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: var(--fg); transition: width 0.2s; }
+        .site-nav a:hover, .site-nav a.active { color: var(--fg); }
+        .site-nav a.active::after, .site-nav a:hover::after { width: 100%; }
         .filter-bar { display: none; }
-
-        /* ── Page layout: sidebar + cards ── */
-        main {
-            position: relative;
-            z-index: 1;
-            padding: 2rem;
-            display: grid;
-            grid-template-columns: 160px 1fr;
-            gap: 0;
-            max-width: 1060px;
-            margin: 0 auto;
-        }
-
-        .filter-sidebar {
-            position: sticky;
-            top: 57px;
-            height: calc(100vh - 57px);
-            display: flex;
-            flex-direction: column;
-            padding: 0 1.5rem 0 0;
-            border-right: 1px solid var(--fg);
-        }
-
-        .filter-sidebar-label {
-            font-size: 0.55rem;
-            font-weight: 300;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid var(--fg);
-        }
-
-        .filter-btn {
-            font-family: 'Roboto Mono', monospace;
-            font-size: 0.68rem;
-            font-weight: 300;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--muted);
-            background: none;
-            border: none;
-            padding: 0.6rem 0;
-            cursor: crosshair;
-            transition: color 0.15s;
-            text-align: left;
-            white-space: nowrap;
-            border-bottom: 1px solid rgba(0,0,0,0.06);
-        }
-
+        main { position: relative; z-index: 1; padding: 2rem; display: grid; grid-template-columns: 160px 1fr; gap: 0; max-width: 1060px; margin: 0 auto; }
+        .filter-sidebar { position: sticky; top: 57px; height: calc(100vh - 57px); display: flex; flex-direction: column; padding: 0 1.5rem 0 0; border-right: 1px solid var(--fg); }
+        .filter-sidebar-label { font-size: 0.55rem; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--fg); }
+        .filter-btn { font-family: 'Roboto Mono', monospace; font-size: 0.68rem; font-weight: 300; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); background: none; border: none; padding: 0.6rem 0; cursor: crosshair; transition: color 0.15s; text-align: left; white-space: nowrap; border-bottom: 1px solid rgba(0,0,0,0.06); }
         .filter-btn:last-child { border-bottom: none; }
         .filter-btn:hover { color: var(--fg); }
         .filter-btn.active { color: var(--fg); font-weight: 700; }
-
-        .filter-btn sup {
-            font-size: 0.5rem;
-            font-weight: 300;
-            color: var(--muted);
-            margin-left: 0.3rem;
-        }
-
-        /* ── Project list ── */
-        .project-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            padding-left: 1.5rem;
-        }
-
-        /* ── Card ── */
-        .card {
-            display: grid;
-            grid-template-columns: 420px minmax(0, 260px);
-            height: 260px;
-            border: 1px solid var(--fg);
-            text-decoration: none;
-            color: var(--fg);
-            background: var(--bg);
-            overflow: hidden;
-            position: relative;
-            cursor: zoom-in;
-        }
-
-        /* ── Image column ── */
-        .card-img {
-            overflow: hidden;
-            border-right: 1px solid var(--fg);
-            position: relative;
-        }
-
-        .card-img::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 0; bottom: 0;
-            width: 0;
-            background: var(--fg);
-            transition: width 0.25s ease;
-            z-index: 2;
-        }
-
-        .card:hover .card-img::before { width: 4px; }
-
-        .card-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
-        }
-
-        .card:hover .card-img img { transform: scale(1.04); }
-
-        /* ── Info column ── */
-        .card-info {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 1rem 1rem 1rem 1.5rem;
-            position: relative;
-        }
-
-        .card-top {
-            display: flex;
-            align-items: baseline;
-            gap: 0.6rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .card-num {
-            font-size: 0.6rem;
-            font-weight: 300;
-            color: var(--muted);
-            letter-spacing: 0.1em;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-
-        .card-title {
-            font-size: 1rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .card-bottom {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .card-type {
-            font-size: 0.6rem;
-            font-weight: 300;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--muted);
-        }
-
-        .card-year {
-            font-size: 0.6rem;
-            font-weight: 300;
-            color: var(--muted);
-        }
-
+        .filter-btn sup { font-size: 0.5rem; font-weight: 300; color: var(--muted); margin-left: 0.3rem; }
+        .project-list { display: flex; flex-direction: column; gap: 1rem; padding-left: 1.5rem; }
+        .card { display: grid; grid-template-columns: 380px minmax(0, 380px); height: 260px; border: 1px solid var(--fg); text-decoration: none; color: var(--fg); background: var(--bg); overflow: hidden; position: relative; cursor: zoom-in; transition: border-width 0.15s ease; }
+        .card:hover { border-width: 2px; }
+        .card-img { overflow: hidden; border-right: 1px solid var(--fg); position: relative; }
+        .card-img img, .card-img video { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .card-info { display: flex; flex-direction: column; justify-content: flex-end; padding: 1rem 1rem 1rem 1.5rem; position: relative; }
+        .card-top { display: flex; align-items: baseline; gap: 0.6rem; margin-bottom: 0.5rem; }
+        .card-num { font-size: 0.6rem; font-weight: 300; color: var(--muted); letter-spacing: 0.1em; white-space: nowrap; flex-shrink: 0; }
+        .card-title { font-size: 1rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .card-bottom { display: flex; align-items: center; gap: 1rem; }
+        .card-type { font-size: 0.6rem; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+        .card-year { font-size: 0.6rem; font-weight: 300; color: var(--muted); }
         .card.hidden { display: none; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         .card.filter-in { animation: fadeIn 0.3s ease both; }
-
-        @media (max-width: 860px) {
-            main { grid-template-columns: 1fr; padding: 1.25rem; }
-            .filter-sidebar { position: relative; top: 0; height: auto; flex-direction: row; flex-wrap: wrap; gap: 0; border-right: none; border-bottom: 1px solid var(--fg); padding: 0 0 1rem; margin-bottom: 1rem; }
-            .filter-sidebar-label { display: none; }
-            .filter-btn { border-bottom: none; padding: 0.4rem 1rem 0.4rem 0; }
-            .card { grid-template-columns: 280px 1fr; }
-            .card-title { font-size: 1rem; }
-            .card-info { padding: 1rem 1.25rem; }
-            .project-list { padding-left: 0; }
-        }
-
-        @media (max-width: 540px) {
-            .card { grid-template-columns: 130px 1fr; }
-            .card-img img { min-height: 130px; }
-        }
+        @media (max-width: 860px) { main { grid-template-columns: 1fr; padding: 1.25rem; } .filter-sidebar { position: relative; top: 0; height: auto; flex-direction: row; flex-wrap: wrap; gap: 0; border-right: none; border-bottom: 1px solid var(--fg); padding: 0 0 1rem; margin-bottom: 1rem; } .filter-sidebar-label { display: none; } .filter-btn { border-bottom: none; padding: 0.4rem 1rem 0.4rem 0; } .card { grid-template-columns: 280px 1fr; } .card-info { padding: 1rem 1.25rem; } .project-list { padding-left: 0; } }
+        @media (max-width: 540px) { .card { grid-template-columns: 130px 1fr; } .card-img img { min-height: 130px; } }
     </style>
 </head>
 <body>
@@ -300,14 +58,48 @@
 <main>
     <aside class="filter-sidebar">
         <span class="filter-sidebar-label">Filter</span>
-        <button class="filter-btn active" data-filter="all">All<sup>7</sup></button>
-        <button class="filter-btn" data-filter="branding">Branding<sup>3</sup></button>
-        <button class="filter-btn" data-filter="editorial">Editorial<sup>1</sup></button>
-        <button class="filter-btn" data-filter="ux">UX / UI<sup>1</sup></button>
+        <button class="filter-btn active" data-filter="all">All<sup>9</sup></button>
         <button class="filter-btn" data-filter="graphic">Graphic<sup>2</sup></button>
+        <button class="filter-btn" data-filter="branding">Branding<sup>3</sup></button>
+        <button class="filter-btn" data-filter="editorial">Editorial<sup>3</sup></button>
+        <button class="filter-btn" data-filter="ux">UX / UI<sup>1</sup></button>
     </aside>
 
     <div class="project-list">
+
+        <a class="card" data-cat="editorial" href="./thesis.html">
+            <div class="card-img">
+                <video autoplay loop muted playsinline preload="auto">
+                    <source src="./assets/images/projects/Thesis/medium1/weaving_vdo_compressed.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="card-info">
+                <div class="card-top">
+                    <span class="card-num">01</span>
+                    <span class="card-title">How to Weave a Cucumber</span>
+                </div>
+                <div class="card-bottom">
+                    <span class="card-type">Thesis Project</span>
+                    <span class="card-year">2026</span>
+                </div>
+            </div>
+        </a>
+
+        <a class="card" data-cat="editorial" href="./howtoinvertcucumber.html">
+            <div class="card-img">
+                <img src="./assets/images/projects/thoughtonthesis/spread35.png" alt="Thoughts on Thesis" />
+            </div>
+            <div class="card-info">
+                <div class="card-top">
+                    <span class="card-num">02</span>
+                    <span class="card-title">Thoughts on Thesis</span>
+                </div>
+                <div class="card-bottom">
+                    <span class="card-type">Graphic + Editorial</span>
+                    <span class="card-year">2025</span>
+                </div>
+            </div>
+        </a>
 
         <a class="card" data-cat="graphic" href="./sightofsound.html">
             <div class="card-img">
@@ -315,7 +107,7 @@
             </div>
             <div class="card-info">
                 <div class="card-top">
-                    <span class="card-num">01</span>
+                    <span class="card-num">03</span>
                     <span class="card-title">Sight of Sound</span>
                 </div>
                 <div class="card-bottom">
@@ -325,13 +117,13 @@
             </div>
         </a>
 
-        <a class="card" data-cat="branding" href="./oddapple.html">
+        <a class="card" data-cat="branding" href="./oddapples.html">
             <div class="card-img">
                 <img src="./assets/images/projects/oddapples/installation.JPG" alt="Odd Apples" />
             </div>
             <div class="card-info">
                 <div class="card-top">
-                    <span class="card-num">02</span>
+                    <span class="card-num">04</span>
                     <span class="card-title">Odd Apples</span>
                 </div>
                 <div class="card-bottom">
@@ -347,7 +139,7 @@
             </div>
             <div class="card-info">
                 <div class="card-top">
-                    <span class="card-num">03</span>
+                    <span class="card-num">05</span>
                     <span class="card-title">Art Beyond Bars</span>
                 </div>
                 <div class="card-bottom">
@@ -363,7 +155,7 @@
             </div>
             <div class="card-info">
                 <div class="card-top">
-                    <span class="card-num">04</span>
+                    <span class="card-num">06</span>
                     <span class="card-title">I love / I hate routine</span>
                 </div>
                 <div class="card-bottom">
@@ -379,7 +171,7 @@
             </div>
             <div class="card-info">
                 <div class="card-top">
-                    <span class="card-num">05</span>
+                    <span class="card-num">07</span>
                     <span class="card-title">Catalog of Influences</span>
                 </div>
                 <div class="card-bottom">
@@ -395,7 +187,7 @@
             </div>
             <div class="card-info">
                 <div class="card-top">
-                    <span class="card-num">06</span>
+                    <span class="card-num">08</span>
                     <span class="card-title">Bread &amp; Butter</span>
                 </div>
                 <div class="card-bottom">
@@ -411,7 +203,7 @@
             </div>
             <div class="card-info">
                 <div class="card-top">
-                    <span class="card-num">07</span>
+                    <span class="card-num">09</span>
                     <span class="card-title">Find Bite</span>
                 </div>
                 <div class="card-bottom">
@@ -422,3 +214,23 @@
         </a>
 
     </div>
+</main>
+
+<script>
+    const btns  = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.card');
+    btns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = btn.dataset.filter;
+            btns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            cards.forEach(card => {
+                const match = filter === 'all' || card.dataset.cat === filter;
+                card.classList.toggle('hidden', !match);
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -32,20 +32,25 @@
         .project-subtitle { font-size: 0.75rem; font-weight: 300; font-style: italic; color: var(--muted); margin-bottom: 2rem; }
         .project-desc { font-size: 0.88rem; font-weight: 300; line-height: 1.9; color: rgba(0,0,0,0.7); max-width: 680px; margin-bottom: 3rem; }
         .project-desc i { font-style: italic; color: var(--fg); }
-        .section-header { font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; color: var(--fg); margin-top: 3rem; margin-bottom: 1.5rem; display: block; }
+        .section-header { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.01em; color: var(--fg); margin-top: 3rem; margin-bottom: 1.5rem; display: block; }
         .sub-header { font-size: 0.65rem; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fg); margin-top: 1.5rem; margin-bottom: 0.75rem; display: block; }
         .img-block { margin-bottom: 1.5rem; border: 1px solid var(--fg); overflow: hidden; line-height: 0; font-size: 0; }
         .img-block img, .img-block video { width: 100%; display: block; vertical-align: bottom; }
+        /* No-border image block for pattern examples */
+        .img-block-nb { margin-bottom: 1rem; overflow: hidden; line-height: 0; font-size: 0; }
+        .img-block-nb img { width: 100%; display: block; vertical-align: bottom; }
         .img-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; align-items: start; }
         .img-row .img-block { margin-bottom: 0; }
         .img-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; align-items: start; }
-        .img-row-3 .img-block { margin-bottom: 0; }
+        .img-row-3 .img-block, .img-row-3 .img-block-nb { margin-bottom: 0; }
         .img-row-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; align-items: start; }
-        .img-row-4 .img-block { margin-bottom: 0; }
+        .img-row-4 .img-block, .img-row-4 .img-block-nb { margin-bottom: 0; }
         .remainder-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; align-items: start; }
         .remainder-row .img-block { margin-bottom: 0; }
         .remainder-row-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; align-items: start; }
         .remainder-row-4 .img-block { margin-bottom: 0; }
+        .pattern-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 1.5rem; align-items: start; margin-left: auto; margin-right: auto; }
+        .pattern-grid .img-block-nb { margin-bottom: 0; }
         .embed-block { border: 1px solid var(--fg); overflow: hidden; margin-bottom: 1.5rem; }
         .embed-block iframe { display: block; }
         .project-nav { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 2rem; border-top: 1px solid var(--fg); background: var(--bg); }
@@ -54,8 +59,8 @@
         .project-nav .nav-label { font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; display: block; margin-bottom: 0.2rem; }
         .project-nav .nav-title { font-size: 0.75rem; font-weight: 700; color: var(--fg); }
         .project-nav .spacer { flex: 1; }
-        @media (max-width: 860px) { :root { --cue-width: 140px; } .notes-col { padding: 2rem 1.5rem 4rem; } .img-row-3, .img-row-4, .remainder-row, .remainder-row-4 { grid-template-columns: 1fr 1fr; } }
-        @media (max-width: 600px) { .cornell { grid-template-columns: 1fr; } .cornell::before { display: none; } .cue-col { position: relative; top: 0; height: auto; flex-direction: row; flex-wrap: wrap; padding: 1.25rem 1.25rem 0; gap: 1.25rem; border-bottom: 1px solid var(--fg); } .cue-back { display: none; } .notes-col { padding: 1.5rem 1.25rem 3rem; } .img-row, .img-row-3, .img-row-4, .remainder-row, .remainder-row-4 { grid-template-columns: 1fr; } }
+        @media (max-width: 860px) { :root { --cue-width: 140px; } .notes-col { padding: 2rem 1.5rem 4rem; } .img-row-3, .img-row-4, .remainder-row, .remainder-row-4, .pattern-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 600px) { .cornell { grid-template-columns: 1fr; } .cornell::before { display: none; } .cue-col { position: relative; top: 0; height: auto; flex-direction: row; flex-wrap: wrap; padding: 1.25rem 1.25rem 0; gap: 1.25rem; border-bottom: 1px solid var(--fg); } .cue-back { display: none; } .notes-col { padding: 1.5rem 1.25rem 3rem; } .img-row, .img-row-3, .img-row-4, .remainder-row, .remainder-row-4, .pattern-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -92,7 +97,7 @@
     <main class="notes-col">
 
         <h1 class="project-title">How to Weave a Cucumber</h1>
-        <p class="project-subtitle">A thesis book — 172 pages</p>
+        <p class="project-subtitle">A thesis project</p>
 
         <p class="project-desc">
             <i>How to weave a cucumber</i> begins with something personal. Cucumber is my nickname in Thai — a symbol of organic form and growth. This thesis investigates the relationship between the logic of mathematics and the intricacy of craft, two disciplines often perceived as polar opposites. Through material experimentation, creative coding, and manual execution, systematic designs are represented in organic ways and traditional crafts are reinterpreted through mathematical frameworks. Logic and expression become intertwined. The system and the soul coexist.
@@ -185,6 +190,7 @@
                 <source src="./assets/images/projects/Thesis/medium1/thesis_compressed.mp4" type="video/mp4">
             </video>
         </div>
+
         <h4 class="section-header">Features</h4>
         <div class="img-row-3" style="margin-bottom: 2rem;">
             <div>
@@ -215,38 +221,125 @@
             <div class="img-block"><img src="./assets/images/projects/Thesis/medium1/website/designs.png" alt="designs" /></div>
             <span class="sub-header" style="margin-top: 0.4rem;">Design Library</span>
         </div>
-        <div class="embed-block">
-            <iframe
-                    src="https://modularpattern-s8op.vercel.app/"
-                    width="100%"
-                    height="900"
-                    style="border: none;"
-                    allowfullscreen>
-            </iframe>
+
+        <a href="https://modularpattern-s8op.vercel.app/" target="_blank" style="display: inline-block; margin-bottom: 3rem; font-family: 'Roboto Mono', monospace; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; color: var(--bg); background: var(--fg); padding: 0.85rem 2rem; border: 1px solid var(--fg);">Try it → Live Website</a>
+
+        <!-- Pattern Examples -->
+        <h3 class="section-header">(x + y) mod 3 — Pattern Examples</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 85%; margin: 0 auto 1.5rem;">
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/add_patterns/add-pattern(7).png" /></div>
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/add_patterns/add-pattern(6).png" /></div>
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/add_patterns/add-pattern(18).png" /></div>
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/add_patterns/add-pattern%20(4).png" /></div>
         </div>
-        <span class="sub-header" style="margin-top: 0.5rem;">↑ Live website — <a href="https://modularpattern-s8op.vercel.app/" target="_blank" style="color: var(--fg); text-decoration: underline;">open in new tab</a></span>
 
-        <h2 class="section-header">Medium 2</h2>
-        <!-- Add medium2 images here -->
+        <h3 class="section-header">(x × y) mod 3 — Pattern Examples</h3>
+        <div class="pattern-grid" style="max-width: 85%;">
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/mul_patterns/mul-pattern(10).png" /></div>
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/mul_patterns/mul-pattern(12).png" /></div>
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/mul_patterns/mul-pattern(1).png" /></div>
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/mul_patterns/mul-pattern(13).png" /></div>
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/mul_patterns/mul-pattern(8).png" /></div>
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/mul_patterns/mul-pattern(9).png" /></div>
+        </div>
 
+        <h3 class="section-header">√(x² + y²) mod 4 — Pattern Examples</h3>
+        <div class="pattern-grid" style="max-width: 85%;">
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/distance_patterns/distance-pattern.png" /></div>
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/distance_patterns/distance-pattern%20(8).png" /></div>
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/distance_patterns/distance-pattern(24).png" /></div>
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/distance_patterns/distance-pattern(7).png" /></div>
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/distance_patterns/distance-pattern(10).png" /></div>
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/distance_patterns/distance-pattern(15).png" /></div>
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/distance_patterns/my-arithmetic-pattern(15).png" /></div>
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/distance_patterns/distance-pattern(9).png" /></div>
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/distance_patterns/distance-pattern(12).png" /></div>
+        </div>
+
+        <!-- Weaving Distance -->
+        <h1 class="section-header">Weaving Distance</h1>
+        <div class="img-block">
+            <img src="./assets/images/projects/Thesis/medium2/thesisbook30.png" alt="Weaving Distance" />
+        </div>
+        <div class="img-block">
+            <img src="./assets/images/projects/Thesis/medium2/thesisbook33.png" alt="Weaving Distance" />
+        </div>
+        <div class="img-block">
+            <img src="./assets/images/projects/Thesis/medium2/thesisbook36.png" alt="Weaving Distance" />
+        </div>
+        <div class="img-block" style="max-width: 50%; margin: 0 auto 1.5rem;">
+            <img src="./assets/images/projects/Thesis/medium2/dad_weave.png" alt="Weaving Distance" />
+        </div>
+        <div class="img-block" style="max-width: 50%; margin: 0 auto 1.5rem;">
+            <img src="./assets/images/projects/Thesis/medium2/mom.png" alt="Weaving Distance" />
+        </div>
+        <div class="img-block">
+            <video autoplay loop muted playsinline preload="auto">
+                <source src="./assets/images/projects/Thesis/medium1/weaving_vdo_compressed.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <!-- Thesis Book -->
+        <h2 class="section-header">Thesis Book</h2>
+        <div class="img-row">
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook2.png" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook86.png" /></div>
+        </div>
+        <div class="img-row">
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook7.png" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook8.png" /></div>
+        </div>
+        <div class="img-row">
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook10.png" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook11.png" /></div>
+        </div>
+        <div class="img-row">
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook13.png" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook14.png" /></div>
+        </div>
+        <div class="img-row">
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook18.png" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook19.png" /></div>
+        </div>
+        <div class="img-row">
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook24.png" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook25.png" /></div>
+        </div>
+        <div class="img-row">
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook27.png" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook28.png" /></div>
+        </div>
+        <div class="img-row">
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook40.png" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook46.png" /></div>
+        </div>
+        <div class="img-row">
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook64.png" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook67.png" /></div>
+        </div>
+
+        <!-- Installation -->
         <h2 class="section-header">Installation</h2>
-        <!-- Add installation images here -->
-        <div class="img-row-4" style="max-width: 500px; margin: 0 auto;">
-            <div class="img-block"><img src="./assets/images/projects/Thesis/add_patterns/add-pattern(5).png" alt="Add pattern 5" /></div>
-            <div class="img-block"><img src="./assets/images/projects/Thesis/add_patterns/add-pattern(6).png" alt="Add pattern 6" /></div>
-            <div class="img-block"><img src="./assets/images/projects/Thesis/add_patterns/add-pattern(7).png" alt="Add pattern 7" /></div>
+        <div class="img-row" style="max-width: 50%; margin: 0 auto 1.5rem;">
+            <div class="img-block"><img src="./assets/images/projects/Thesis/installation/thsis-42.jpeg" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/installation/thsis-86.jpeg" /></div>
+        </div>
+        <div class="img-row" style="max-width: 50%; margin: 0 auto 1.5rem;">
+            <div class="img-block"><img src="./assets/images/projects/Thesis/installation/thsis-84.jpeg" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/installation/thsis-15.jpeg" /></div>
         </div>
 
     </main>
 </div>
 
+
+
 <nav class="project-nav">
     <span></span>
     <span class="spacer"></span>
-    <a href="./artbeyondbars.html">
-        <div style="text-align:right"><span class="nav-label">Next</span><span class="nav-title">Art Beyond Bars</span></div> →
+    <a href="./howtoinvertcucumber.html">
+        <div style="text-align:right"><span class="nav-label">Next</span><span class="nav-title">Thoughts on Thesis</span></div> →
     </a>
 </nav>
-
 </body>
 </html>
