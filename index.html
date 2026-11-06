@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Napasorn (TK) Visuthiwat</title>
+    <meta name="description" content="Portfolio of Napasorn (TK) Visuthiwat, a graphic and web designer working across UX/UI, branding, editorial, and creative code." />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Napasorn (TK) Visuthiwat" />
+    <meta property="og:description" content="Portfolio of Napasorn (TK) Visuthiwat, a graphic and web designer working across UX/UI, branding, editorial, and creative code." />
+    <meta property="og:image" content="https://tkvisuthiwat.com/assets/images/projects/thoughtonthesis/spread35.png" />
+    <meta property="og:url" content="https://tkvisuthiwat.com/" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; cursor: crosshair; }
@@ -18,7 +26,7 @@
         .site-nav a:hover, .site-nav a.active { color: var(--fg); }
         .site-nav a.active::after, .site-nav a:hover::after { width: 100%; }
         .filter-bar { display: none; }
-        main { position: relative; z-index: 1; padding: 2rem; display: grid; grid-template-columns: 160px 1fr; gap: 0; max-width: 1100px; margin: 0 auto; }
+        main { position: relative; z-index: 1; padding: 2rem; display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 0; max-width: 1100px; margin: 0 auto; }
         .filter-sidebar { position: sticky; top: 57px; height: calc(100vh - 57px); display: flex; flex-direction: column; padding: 0 1.5rem 0 0; border-right: 1px solid var(--fg); }
         .filter-sidebar-label { font-size: 0.55rem; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--fg); }
         .filter-btn { font-family: 'Roboto Mono', monospace; font-size: 0.68rem; font-weight: 300; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); background: none; border: none; padding: 0.6rem 0; cursor: crosshair; transition: color 0.15s; text-align: left; white-space: nowrap; border-bottom: 1px solid rgba(0,0,0,0.06); }
@@ -41,8 +49,17 @@
         .card.hidden { display: none; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         .card.filter-in { animation: fadeIn 0.3s ease both; }
-        @media (max-width: 860px) { main { grid-template-columns: 1fr; padding: 1.25rem; } .filter-sidebar { position: relative; top: 0; height: auto; flex-direction: row; flex-wrap: wrap; gap: 0; border-right: none; border-bottom: 1px solid var(--fg); padding: 0 0 1rem; margin-bottom: 1rem; } .filter-sidebar-label { display: none; } .filter-btn { border-bottom: none; padding: 0.4rem 1rem 0.4rem 0; } .card { grid-template-columns: 280px 1fr; height: 260px; } .card-info { padding: 1rem 1.25rem; } .project-list { padding-left: 0; } }
-        @media (max-width: 540px) { .card { grid-template-columns: 130px 1fr; height: 180px; } }
+        @media (max-width: 860px) { main { grid-template-columns: minmax(0, 1fr); padding: 1.25rem; } .filter-sidebar { position: relative; top: 0; height: auto; flex-direction: row; flex-wrap: wrap; gap: 0; border-right: none; border-bottom: 1px solid var(--fg); padding: 0 0 1rem; margin-bottom: 1rem; } .filter-sidebar-label { display: none; } .filter-btn { border-bottom: none; padding: 0.4rem 1rem 0.4rem 0; } .card { grid-template-columns: 280px minmax(0, 1fr); height: 260px; } .card-info { padding: 1rem 1.25rem; } .project-list { padding-left: 0; } }
+        /* Phones: stack image above title so nothing gets cut off */
+        @media (max-width: 600px) {
+            .site-header { padding: 1rem 1.25rem; }
+            .site-nav a { margin-left: 1.25rem; }
+            .filter-btn { padding: 0.4rem 0.9rem 0.4rem 0; font-size: 0.64rem; }
+            .card { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto; height: auto; }
+            .card-img { aspect-ratio: 4 / 3; border-right: none; border-bottom: 1px solid var(--fg); }
+            .card-info { padding: 0.9rem 1rem 1rem; }
+            .card-title { white-space: normal; }
+        }
     </style>
 </head>
 <body>
@@ -85,13 +102,29 @@
             </div>
         </a>
 
+        <a class="card" data-cat="ux" href="./findbite.html">
+            <div class="card-img">
+                <img src="./assets/images/projects/findbite/ux.png" alt="Find Bite" />
+            </div>
+            <div class="card-info">
+                <div class="card-top">
+                    <span class="card-num">02</span>
+                    <span class="card-title">Find Bite</span>
+                </div>
+                <div class="card-bottom">
+                    <span class="card-type">UX / UI</span>
+                    <span class="card-year">2025</span>
+                </div>
+            </div>
+        </a>
+
         <a class="card" data-cat="editorial" href="./howtoinvertcucumber.html">
             <div class="card-img">
                 <img src="./assets/images/projects/thoughtonthesis/spread35.png" alt="Thoughts on Thesis" />
             </div>
             <div class="card-info">
                 <div class="card-top">
-                    <span class="card-num">02</span>
+                    <span class="card-num">03</span>
                     <span class="card-title">Thoughts on Thesis</span>
                 </div>
                 <div class="card-bottom">
@@ -107,7 +140,7 @@
             </div>
             <div class="card-info">
                 <div class="card-top">
-                    <span class="card-num">03</span>
+                    <span class="card-num">04</span>
                     <span class="card-title">Sight of Sound</span>
                 </div>
                 <div class="card-bottom">
@@ -123,7 +156,7 @@
             </div>
             <div class="card-info">
                 <div class="card-top">
-                    <span class="card-num">04</span>
+                    <span class="card-num">05</span>
                     <span class="card-title">Odd Apples</span>
                 </div>
                 <div class="card-bottom">
@@ -139,7 +172,7 @@
             </div>
             <div class="card-info">
                 <div class="card-top">
-                    <span class="card-num">05</span>
+                    <span class="card-num">06</span>
                     <span class="card-title">Art Beyond Bars</span>
                 </div>
                 <div class="card-bottom">
@@ -155,7 +188,7 @@
             </div>
             <div class="card-info">
                 <div class="card-top">
-                    <span class="card-num">06</span>
+                    <span class="card-num">07</span>
                     <span class="card-title">I love / I hate routine</span>
                 </div>
                 <div class="card-bottom">
@@ -171,7 +204,7 @@
             </div>
             <div class="card-info">
                 <div class="card-top">
-                    <span class="card-num">07</span>
+                    <span class="card-num">08</span>
                     <span class="card-title">Catalog of Influences</span>
                 </div>
                 <div class="card-bottom">
@@ -187,28 +220,12 @@
             </div>
             <div class="card-info">
                 <div class="card-top">
-                    <span class="card-num">08</span>
+                    <span class="card-num">09</span>
                     <span class="card-title">Bread &amp; Butter</span>
                 </div>
                 <div class="card-bottom">
                     <span class="card-type">Branding</span>
                     <span class="card-year">2024</span>
-                </div>
-            </div>
-        </a>
-
-        <a class="card" data-cat="ux" href="./findbite.html">
-            <div class="card-img">
-                <img src="./assets/images/projects/findbite/ux.png" alt="Find Bite" />
-            </div>
-            <div class="card-info">
-                <div class="card-top">
-                    <span class="card-num">09</span>
-                    <span class="card-title">Find Bite</span>
-                </div>
-                <div class="card-bottom">
-                    <span class="card-type">UX / UI</span>
-                    <span class="card-year">2025</span>
                 </div>
             </div>
         </a>
