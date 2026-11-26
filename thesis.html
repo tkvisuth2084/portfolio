@@ -9,7 +9,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:title" content="How to Weave a Cucumber — TK Visuthiwat" />
     <meta property="og:description" content="How to Weave a Cucumber: a thesis project by Napasorn (TK) Visuthiwat, graphic and web designer." />
-    <meta property="og:image" content="https://tkvisuthiwat.com/assets/images/projects/thoughtonthesis/spread35.png" />
+    <meta property="og:image" content="https://tkvisuthiwat.com/assets/images/projects/Thesis/mul_patterns/mul-pattern(8).png" />
     <meta property="og:url" content="https://tkvisuthiwat.com/thesis.html" />
     <meta name="twitter:card" content="summary_large_image" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
@@ -39,6 +39,8 @@
         .project-title { font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.5rem; }
         .project-subtitle { font-size: 0.75rem; font-weight: 300; font-style: italic; color: var(--muted); margin-bottom: 2rem; }
         .project-desc { font-size: 0.88rem; font-weight: 300; line-height: 1.9; color: rgba(0,0,0,0.7); max-width: 680px; margin-bottom: 3rem; }
+        .section-note { font-size: 0.8rem; font-weight: 300; line-height: 1.8; color: rgba(0,0,0,0.65); max-width: 620px; margin: -0.75rem 0 1.5rem; }
+        .hero { max-width: 760px; margin: 0 auto 3rem; }
         .project-desc i { font-style: italic; color: var(--fg); }
         .section-header { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.01em; color: var(--fg); margin-top: 3rem; margin-bottom: 1.5rem; display: block; }
         .sub-header { font-size: 0.65rem; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fg); margin-top: 1.5rem; margin-bottom: 0.75rem; display: block; }
@@ -108,12 +110,18 @@
             <i>How to weave a cucumber</i> begins with something personal. Cucumber is my nickname in Thai — a symbol of organic form and growth. This thesis investigates the relationship between the logic of mathematics and the intricacy of craft, two disciplines often perceived as polar opposites. Through material experimentation, creative coding, and manual execution, systematic designs are represented in organic ways and traditional crafts are reinterpreted through mathematical frameworks. Logic and expression become intertwined. The system and the soul coexist.
         </p>
 
+
+        <div class="img-block hero">
+            <img src="./assets/images/projects/Thesis/installation/thsis-15.jpeg" alt="The How to Weave a Cucumber installation: woven portraits, the thesis book, printed patterns and a screen" />
+        </div>
         <h2 class="section-header">Method + Prompt Map</h2>
+        <p class="section-note">A map of the keywords and prompts that guided the project.</p>
         <div class="img-block">
             <img src="./assets/images/projects/Thesis/book/thesisbook6.png" alt="Keywords Map and Prompt Map" />
         </div>
 
         <h2 class="section-header">Research + Sketches</h2>
+        <p class="section-note">Early notebook sketches, testing how equations could turn into grid patterns.</p>
         <div class="img-block" style="max-width: 580px; margin: 0 auto 1.5rem;">
             <img src="./assets/images/projects/Thesis/research/note1.jpg" alt="Research sketches 1" />
         </div>
@@ -123,6 +131,7 @@
 
         <!-- Addition -->
         <h2 class="section-header">Addition — (x + y) mod 3</h2>
+        <p class="section-note">Every cell in the grid gets a value from its coordinates: (x + y) mod 3. Each remainder (0, 1 or 2) is given its own motif, and together the motifs build the pattern.</p>
         <div class="img-block" style="max-width: 360px; margin: 0 auto;">
             <img src="./assets/images/projects/Thesis/medium1/pdf2png/addition/addition-1.png" alt="Addition overview" />
         </div>
@@ -142,8 +151,16 @@
             </div>
         </div>
 
+        <span class="sub-header">Pattern Examples</span>
+        <div class="pattern-grid" style="max-width: 700px; margin-bottom: 1.5rem;">
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/add_patterns/add-pattern(7).png" alt="(x + y) mod 3 pattern: dense teal weave" loading="lazy" /></div>
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/add_patterns/add-pattern(6).png" alt="(x + y) mod 3 pattern: teal checkerboard" loading="lazy" /></div>
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/add_patterns/add-pattern(18).png" alt="(x + y) mod 3 pattern: coral checkerboard" loading="lazy" /></div>
+        </div>
+
         <!-- Multiplication -->
         <h2 class="section-header">Multiplication — (x × y) mod 3</h2>
+        <p class="section-note">The same grid run through multiplication instead. Changing the operation changes the rhythm of the pattern.</p>
         <div class="img-block" style="max-width: 360px; margin: 0 auto;">
             <img src="./assets/images/projects/Thesis/medium1/pdf2png/multiplication/multiplication-1.png" alt="Multiplication overview" />
         </div>
@@ -163,8 +180,16 @@
             </div>
         </div>
 
+        <span class="sub-header">Pattern Examples</span>
+        <div class="pattern-grid" style="max-width: 700px; margin-bottom: 1.5rem;">
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/mul_patterns/mul-pattern(10).png" alt="(x × y) mod 3 pattern: coral diamonds on cream" loading="lazy" /></div>
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/mul_patterns/mul-pattern(8).png" alt="(x × y) mod 3 pattern: teal woven motifs" loading="lazy" /></div>
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/mul_patterns/mul-pattern(9).png" alt="(x × y) mod 3 pattern: navy and mint" loading="lazy" /></div>
+        </div>
+
         <!-- Distance Formula -->
         <h2 class="section-header">Distance Formula — √(x² + y²) mod 4</h2>
+        <p class="section-note">Each cell's distance from the corner, mod 4, gives four remainders and patterns that spread outward in arcs.</p>
         <div class="img-block" style="max-width: 360px; margin: 0 auto;">
             <img src="./assets/images/projects/Thesis/medium1/pdf2png/distance/distance-1.png" alt="Distance overview" />
         </div>
@@ -188,8 +213,16 @@
             </div>
         </div>
 
+        <span class="sub-header">Pattern Examples</span>
+        <div class="pattern-grid" style="max-width: 700px; margin-bottom: 1.5rem;">
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/distance_patterns/distance-pattern(11).png" alt="√(x² + y²) mod 4 pattern: dense coral and cream, small grid" loading="lazy" /></div>
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/distance_patterns/distance-pattern(10).png" alt="√(x² + y²) mod 4 pattern: coral diamonds on cream, large grid" loading="lazy" /></div>
+            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/distance_patterns/distance-pattern(15).png" alt="√(x² + y²) mod 4 pattern: coral and pink motifs" loading="lazy" /></div>
+        </div>
+
         <!-- Modular Arithmetic Pattern Website -->
         <h2 class="section-header">Modular Arithmetic Pattern Website</h2>
+        <p class="section-note">A web tool that generates these patterns live. Choose the rules, grid size and colors, and save designs to a library.</p>
         <div class="img-block">
             <video autoplay loop muted playsinline preload="auto">
                 <source src="./assets/images/projects/Thesis/medium1/thesis_compressed.mp4" type="video/mp4">
@@ -229,40 +262,9 @@
 
         <a href="https://modularpattern-s8op.vercel.app/" target="_blank" style="display: inline-block; margin-bottom: 3rem; font-family: 'Roboto Mono', monospace; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; color: var(--bg); background: var(--fg); padding: 0.85rem 2rem; border: 1px solid var(--fg);">Try it → Live Website</a>
 
-        <!-- Pattern Examples -->
-        <h3 class="section-header">(x + y) mod 3 — Pattern Examples</h3>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; max-width: 55%; margin: 0 auto 1.5rem;">
-            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/add_patterns/add-pattern(7).png" /></div>
-            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/add_patterns/add-pattern(6).png" /></div>
-            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/add_patterns/add-pattern(18).png" /></div>
-            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/add_patterns/add-pattern%20(4).png" /></div>
-        </div>
-
-        <h3 class="section-header">(x × y) mod 3 — Pattern Examples</h3>
-        <div class="pattern-grid" style="max-width: 70%; gap: 4rem;">
-            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/mul_patterns/mul-pattern(10).png" /></div>
-            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/mul_patterns/mul-pattern(12).png" /></div>
-            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/mul_patterns/mul-pattern(1).png" /></div>
-            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/mul_patterns/mul-pattern(13).png" /></div>
-            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/mul_patterns/mul-pattern(8).png" /></div>
-            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/mul_patterns/mul-pattern(9).png" /></div>
-        </div>
-
-        <h3 class="section-header">√(x² + y²) mod 4 — Pattern Examples</h3>
-        <div class="pattern-grid" style="max-width: 70%; gap: 4rem;">
-            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/distance_patterns/distance-pattern.png" /></div>
-            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/distance_patterns/distance-pattern%20(8).png" /></div>
-            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/distance_patterns/distance-pattern(24).png" /></div>
-            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/distance_patterns/distance-pattern(7).png" /></div>
-            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/distance_patterns/distance-pattern(10).png" /></div>
-            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/distance_patterns/distance-pattern(15).png" /></div>
-            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/distance_patterns/my-arithmetic-pattern(15).png" /></div>
-            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/distance_patterns/distance-pattern(9).png" /></div>
-            <div class="img-block-nb"><img src="./assets/images/projects/Thesis/distance_patterns/distance-pattern(12).png" /></div>
-        </div>
-
         <!-- Weaving Distance -->
         <h1 class="section-header">Weaving Distance</h1>
+        <p class="section-note">The distance formula made personal. Using a pattern derived from it, I wove paper portraits of my parents, threading their messages to me in Thai through the grid: a way of holding on to family from far away.</p>
         <div class="img-block">
             <img src="./assets/images/projects/Thesis/medium2/thesisbook30.png" alt="Weaving Distance" />
         </div>
@@ -278,59 +280,38 @@
             </video>
         </div>
         <div class="img-row" style="max-width: 80%; margin: 0 auto 1.5rem; gap: 4rem;">
-            <div class="img-block"><img src="./assets/images/projects/Thesis/medium2/mom.png" /></div>
-            <div class="img-block"><img src="./assets/images/projects/Thesis/medium2/dad_weave.png" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/medium2/mom.png" alt="Woven paper portrait of my mom with her messages in Thai" loading="lazy" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/medium2/dad_weave.png" alt="Woven paper portrait of my dad with his messages in Thai" loading="lazy" /></div>
         </div>
 
 
         <!-- Thesis Book -->
         <h2 class="section-header">Thesis Book</h2>
+        <p class="section-note">The printed book documenting the research, process and outcomes.</p>
         <div class="img-row">
-            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook2.png" /></div>
-            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook86.png" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook2.png" alt="Thesis book contents spread" loading="lazy" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook3.png" alt="Thesis statement spread" loading="lazy" /></div>
         </div>
         <div class="img-row">
-            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook3.png" /></div>
-            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook8.png" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook8.png" alt="Equation pattern experiment spread with embroidery" loading="lazy" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook10.png" alt="Addition (x + y) mod 3 spread" loading="lazy" /></div>
         </div>
         <div class="img-row">
-            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook10.png" /></div>
-            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook11.png" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook13.png" alt="Remainder = 0 spread" loading="lazy" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook24.png" alt="15 × 15 pattern spread" loading="lazy" /></div>
         </div>
         <div class="img-row">
-            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook13.png" /></div>
-            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook14.png" /></div>
-        </div>
-        <div class="img-row">
-            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook18.png" /></div>
-            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook19.png" /></div>
-        </div>
-        <div class="img-row">
-            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook24.png" /></div>
-            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook25.png" /></div>
-        </div>
-        <div class="img-row">
-            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook27.png" /></div>
-            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook28.png" /></div>
-        </div>
-        <div class="img-row">
-            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook40.png" /></div>
-            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook46.png" /></div>
-        </div>
-        <div class="img-row">
-            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook64.png" /></div>
-            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook67.png" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook25.png" alt="Pattern archive spread" loading="lazy" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/book/thesisbook27.png" alt="Paper weaving experiment spread" loading="lazy" /></div>
         </div>
 
         <!-- Installation -->
         <h2 class="section-header">Installation</h2>
-        <div class="img-row" style="max-width: 50%; margin: 0 auto 1.5rem;">
-            <div class="img-block"><img src="./assets/images/projects/Thesis/installation/thsis-42.jpeg" /></div>
-            <div class="img-block"><img src="./assets/images/projects/Thesis/installation/thsis-86.jpeg" /></div>
-        </div>
-        <div class="img-row" style="max-width: 50%; margin: 0 auto 1.5rem;">
-            <div class="img-block"><img src="./assets/images/projects/Thesis/installation/thsis-84.jpeg" /></div>
-            <div class="img-block"><img src="./assets/images/projects/Thesis/installation/thsis-15.jpeg" /></div>
+        <p class="section-note">The final exhibition brought it together: woven portraits, the thesis book, printed patterns and the live pattern website.</p>
+        <div class="img-row-3" style="max-width: 900px; margin: 0 auto 1.5rem;">
+            <div class="img-block"><img src="./assets/images/projects/Thesis/installation/thsis-42.jpeg" alt="Installation detail: the thesis book under พ่อ (dad)" loading="lazy" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/installation/thsis-84.jpeg" alt="Visitors using the pattern website at the installation" loading="lazy" /></div>
+            <div class="img-block"><img src="./assets/images/projects/Thesis/installation/thsis-86.jpeg" alt="Installation detail: book, embroidery and printed patterns under แม่ (mom)" loading="lazy" /></div>
         </div>
 
     </main>
@@ -341,8 +322,8 @@
 <nav class="project-nav">
     <span></span>
     <span class="spacer"></span>
-    <a href="./howtoinvertcucumber.html">
-        <div style="text-align:right"><span class="nav-label">Next</span><span class="nav-title">Thoughts on Thesis</span></div> →
+    <a href="./breadandbutter.html">
+        <div style="text-align:right"><span class="nav-label">Next</span><span class="nav-title">Central Pattana: Bread &amp; Butter</span></div> →
     </a>
 </nav>
 </body>

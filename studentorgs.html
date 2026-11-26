@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Organizations — TK Visuthiwat</title>
+    <meta name="description" content="Student Organizations: design for BU NMDP and BU THAISA by Napasorn (TK) Visuthiwat, graphic and web designer." />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Student Organizations — TK Visuthiwat" />
+    <meta property="og:description" content="Student Organizations: design for BU NMDP and BU THAISA by Napasorn (TK) Visuthiwat, graphic and web designer." />
+    <meta property="og:image" content="https://tkvisuthiwat.com/assets/images/projects/orgs/thaisa/thaisa-thai-night-gsu.jpg" />
+    <meta property="og:url" content="https://tkvisuthiwat.com/studentorgs.html" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #ffffff;
+            --fg: #0a0a0a;
+            --muted: rgba(0,0,0,0.35);
+            --cue-width: 200px;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--fg);
+            font-family: 'Roboto Mono', monospace;
+            min-height: 100vh;
+        }
+
+        /* Graph paper */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Grain */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.35;
+        }
+
+        /* ── Header ── */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--fg);
+            background: var(--bg);
+        }
+
+        .logo a {
+            font-weight: 300;
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+            text-decoration: none;
+            color: var(--fg);
+        }
+
+        .site-nav a {
+            margin-left: 2rem;
+            font-size: 0.75rem;
+            font-weight: 300;
+            letter-spacing: 0.12em;
+            text-decoration: none;
+            color: var(--muted);
+            transition: color 0.15s;
+            position: relative;
+        }
+
+        .site-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; left: 0;
+            width: 0; height: 1px;
+            background: var(--fg);
+            transition: width 0.2s;
+        }
+
+        .site-nav a:hover { color: var(--fg); }
+        .site-nav a:hover::after { width: 100%; }
+
+        /* ══════════════════════════
+           CORNELL LAYOUT
+        ══════════════════════════ */
+        .cornell {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: var(--cue-width) 1fr;
+            min-height: calc(100vh - 57px);
+        }
+
+        /* Black vertical margin line */
+        .cornell::before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            left: var(--cue-width);
+            width: 1px;
+            background: rgba(0,0,0,0.15);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* ── Cue column (left) ── */
+        .cue-col {
+            padding: 2.5rem 1.25rem 2.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            position: sticky;
+            top: 57px;
+            height: calc(100vh - 57px);
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+
+        .cue-col::-webkit-scrollbar { display: none; }
+
+        .cue-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .cue-label {
+            font-size: 0.58rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .cue-value {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--fg);
+            line-height: 1.5;
+        }
+
+        .cue-value.italic { font-style: italic; }
+
+        .cue-back {
+            font-size: 0.68rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: color 0.15s;
+            margin-top: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .cue-back:hover { color: var(--fg); }
+
+        /* ── Notes column (right) ── */
+        .notes-col {
+            padding: 2.5rem 3rem 5rem 2.5rem;
+        }
+
+        .project-title {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 2rem;
+        }
+
+        .project-desc {
+            font-size: 0.88rem;
+            font-weight: 300;
+            line-height: 1.9;
+            color: rgba(0,0,0,0.7);
+            max-width: 680px;
+            margin-bottom: 3rem;
+        }
+
+        .project-desc i { font-style: italic; color: var(--fg); }
+
+        /* ── Image blocks ── */
+        .img-block {
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--fg);
+            overflow: hidden;
+        }
+
+        .img-block img,
+        .img-block video {
+            width: 100%;
+            display: block;
+        }
+
+        .img-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .img-row .img-block { margin-bottom: 0; }
+        .img-row { align-items: start; }
+        .img-row.three { grid-template-columns: 1fr 1fr 1fr; }
+        .narrow { max-width: 520px; margin-left: auto; margin-right: auto; }
+        .story { max-width: 360px; margin-left: auto; margin-right: auto; }
+
+        .section-label {
+            font-size: 0.6rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.75rem;
+            margin-top: 2.5rem;
+            display: block;
+        }
+
+        /* ── Summary bar ── */
+        .summary-bar {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: var(--cue-width) 1fr;
+            border-top: 1px solid var(--fg);
+            background: var(--bg);
+        }
+
+        .summary-bar::before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            left: var(--cue-width);
+            width: 1px;
+            background: rgba(0,0,0,0.15);
+        }
+
+        .summary-cue {
+            padding: 1rem 1.25rem 1rem 2rem;
+            font-size: 0.6rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+        }
+
+        .summary-text {
+            padding: 1rem 2.5rem;
+            font-size: 0.75rem;
+            font-weight: 300;
+            font-style: italic;
+            color: rgba(0,0,0,0.5);
+            line-height: 1.7;
+        }
+
+
+        /* ── Project nav ── */
+        .project-nav {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 2rem;
+            border-top: 1px solid var(--fg);
+            background: var(--bg);
+        }
+
+        .project-nav a {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.68rem;
+            font-weight: 300;
+            letter-spacing: 0.12em;
+            text-decoration: none;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: color 0.15s;
+        }
+
+        .project-nav a:hover { color: var(--fg); }
+
+        .project-nav .nav-label {
+            font-size: 0.55rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .project-nav .nav-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--fg);
+        }
+
+        .project-nav .spacer { flex: 1; }
+
+        /* Responsive */
+        @media (max-width: 860px) {
+            :root { --cue-width: 140px; }
+            .notes-col { padding: 2rem 1.5rem 4rem 1.5rem; }
+        }
+
+        @media (max-width: 600px) {
+            .cornell { grid-template-columns: 1fr; }
+            .cornell::before { display: none; }
+            .cue-col {
+                position: relative;
+                top: 0;
+                height: auto;
+                flex-direction: row;
+                flex-wrap: wrap;
+                padding: 1.25rem 1.25rem 0;
+                gap: 1.25rem;
+                border-bottom: 1px solid var(--fg);
+            }
+            .cue-back { display: none; }
+            .notes-col { padding: 1.5rem 1.25rem 3rem; }
+            .img-row, .img-row.three { grid-template-columns: 1fr; }
+            .summary-bar { grid-template-columns: 1fr; }
+            .summary-bar::before { display: none; }
+            .summary-cue { padding: 0.75rem 1.25rem 0; }
+            .summary-text { padding: 0.5rem 1.25rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="logo"><a href="./index.html">Napasorn (TK) Visuthiwat</a></div>
+    <nav class="site-nav">
+        <a href="./index.html">work</a>
+        <a href="./about.html">about</a>
+    </nav>
+</header>
+
+<div class="cornell">
+
+    <aside class="cue-col">
+        <div class="cue-group">
+            <span class="cue-label">Project</span>
+            <span class="cue-value italic">Student Organizations</span>
+        </div>
+        <div class="cue-group">
+            <span class="cue-label">Type</span>
+            <span class="cue-value">Graphic Design</span>
+        </div>
+        <div class="cue-group">
+            <span class="cue-label">Year</span>
+            <span class="cue-value">2024–2026</span>
+        </div>
+        <div class="cue-group">
+            <span class="cue-label">Roles</span>
+            <span class="cue-value">Graphic Design Chair —<br>BU THAISA</span>
+            <span class="cue-value">Marketing Chair —<br>BU NMDP</span>
+        </div>
+        <a class="cue-back" href="./index.html">← back to work</a>
+    </aside>
+
+    <main class="notes-col">
+
+        <h1 class="project-title">Student Organizations</h1>
+
+        <p class="project-desc">
+            Alongside my studies at Boston University, I led design for two student organizations. As Graphic Design Chair for <i>BU THAISA</i>, the Thai Student Association, I designed promotion for cultural events like Thai Night, along with event recaps and merchandise. As Marketing Chair for <i>BU NMDP</i>, I created flyers and social posts for general meetings and fundraisers, including the sponsor-backed Spin the Wheel.
+        </p>
+
+
+        <div class="img-block">
+            <img src="./assets/images/projects/orgs/thaisa/thaisa-thai-night-gsu.jpg" alt="Thai Night event graphic for BU THAISA, wide format" />
+        </div>
+
+        <p class="section-label">BU THAISA — Graphic Design Chair, 2024–2025</p>
+        <div class="img-block story">
+            <img src="./assets/images/projects/orgs/thaisa/thaisa-thai-night-warren.jpg" alt="Thai Night story graphic" loading="lazy" />
+        </div>
+        <div class="img-row three">
+            <div class="img-block">
+                <img src="./assets/images/projects/orgs/thaisa/thaisa-thai-night-recap-1.jpg" alt="Thai Night recap post" loading="lazy" />
+            </div>
+            <div class="img-block">
+                <img src="./assets/images/projects/orgs/thaisa/thaisa-movie-night.jpg" alt="Movie night event post" loading="lazy" />
+            </div>
+            <div class="img-block">
+                <img src="./assets/images/projects/orgs/thaisa/thaisa-hoodie-preorder.jpg" alt="THAISA hoodie preorder post" loading="lazy" />
+            </div>
+        </div>
+
+        <p class="section-label">NMDP — Marketing Chair, 2024–2026</p>
+        <div class="img-block">
+            <img src="./assets/images/projects/orgs/nmdp/nmdp-palette-palooza-wide.jpg" alt="Palette Palooza: NMDP x Art Club paint-for-good fundraiser" loading="lazy" />
+        </div>
+        <div class="img-row">
+            <div class="img-block">
+                <img src="./assets/images/projects/orgs/nmdp/nmdp-fundraiser.png" alt="NMDP fundraiser flyer" loading="lazy" />
+            </div>
+            <div class="img-block">
+                <img src="./assets/images/projects/orgs/nmdp/nmdp-general-meeting-6.png" alt="General meeting 6 announcement" loading="lazy" />
+            </div>
+        </div>
+        <div class="img-row">
+            <div class="img-block">
+                <img src="./assets/images/projects/orgs/nmdp/nmdp-spin-the-wheel-2024.jpg" alt="Spin the Wheel fundraiser post" loading="lazy" />
+            </div>
+            <div class="img-block">
+                <img src="./assets/images/projects/orgs/nmdp/nmdp-spin-the-wheel-sponsors.jpg" alt="Spin the Wheel sponsors post" loading="lazy" />
+            </div>
+        </div>
+        <div class="img-row">
+            <div class="img-block">
+                <img src="./assets/images/projects/orgs/nmdp/nmdp-cardmaking-1.png" alt="Card-making event post" loading="lazy" />
+            </div>
+            <div class="img-block">
+                <img src="./assets/images/projects/orgs/nmdp/nmdp-cardmaking-2.png" alt="Card-making event post, second slide" loading="lazy" />
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<nav class="project-nav">
+    <a href="./howtoinvertcucumber.html">
+        ← <div><span class="nav-label">Previous</span><span class="nav-title">Thoughts on Thesis</span></div>
+    </a>
+    <span class="spacer"></span>
+    <a href="./catalogofinfluences.html">
+        <div style="text-align:right"><span class="nav-label">Next</span><span class="nav-title">Catalog of Influences</span></div> →
+    </a>
+</nav>
+</body>
+</html>

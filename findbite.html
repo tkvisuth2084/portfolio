@@ -9,7 +9,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Find Bite — TK Visuthiwat" />
     <meta property="og:description" content="Find Bite: a UX/UI case study by Napasorn (TK) Visuthiwat, graphic and web designer." />
-    <meta property="og:image" content="https://tkvisuthiwat.com/assets/images/projects/findbite/ux.png" />
+    <meta property="og:image" content="https://tkvisuthiwat.com/assets/images/projects/findbite/case-study/hero.jpg" />
     <meta property="og:url" content="https://tkvisuthiwat.com/findbite.html" />
     <meta name="twitter:card" content="summary_large_image" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
@@ -277,6 +277,77 @@
             .notes-col { padding: 1.5rem 1.25rem 3rem; }
             .img-row { grid-template-columns: 1fr; }
         }
+        /* ── Project nav ── */
+        .project-nav {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 2rem;
+            border-top: 1px solid var(--fg);
+            background: var(--bg);
+        }
+
+        .project-nav a {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.68rem;
+            font-weight: 300;
+            letter-spacing: 0.12em;
+            text-decoration: none;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: color 0.15s;
+        }
+
+        .project-nav a:hover { color: var(--fg); }
+
+        .project-nav .nav-label {
+            font-size: 0.55rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .project-nav .nav-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--fg);
+        }
+
+        .project-nav .spacer { flex: 1; }
+
+
+        /* ── Case study ── */
+        .lead { max-width: 680px; }
+        .cs-section { margin-top: 4.5rem; }
+        .cs-kicker { font-size: 0.6rem; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.6rem; }
+        .cs-title { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 1.25rem; }
+        .cs-text { font-size: 0.82rem; font-weight: 300; line-height: 1.85; color: rgba(0,0,0,0.68); max-width: 640px; margin-bottom: 1.5rem; }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1rem; margin-bottom: 1.75rem; }
+        .card-box { border: 1px solid var(--fg); padding: 1.1rem 1.1rem 1.25rem; background: var(--bg); }
+        .card-box .num { font-size: 0.62rem; font-weight: 300; letter-spacing: 0.15em; color: var(--muted); display: block; margin-bottom: 0.5rem; }
+        .card-box h3 { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem; line-height: 1.4; }
+        .card-box p { font-size: 0.76rem; font-weight: 300; line-height: 1.7; color: rgba(0,0,0,0.68); }
+        .card-box .warn { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px dashed rgba(0,0,0,0.3); color: var(--fg); }
+        .callout { border: 1px solid var(--fg); padding: 1.4rem 1.6rem; margin: 0 0 1.75rem; max-width: 680px; background: var(--bg); }
+        .callout span { font-size: 0.58rem; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.5rem; }
+        .callout p { font-size: 0.95rem; font-weight: 700; line-height: 1.5; letter-spacing: -0.01em; }
+        .persona { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 2rem; align-items: start; margin-bottom: 1.75rem; }
+        .persona dl { display: grid; gap: 1.1rem; }
+        .persona dt { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.3rem; }
+        .persona dd { font-size: 0.78rem; font-weight: 300; line-height: 1.7; color: rgba(0,0,0,0.68); }
+        .feature { display: grid; grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr); gap: 2rem; align-items: center; margin-bottom: 2.5rem; }
+        .feature h3 { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.6rem; }
+        .feature p { font-size: 0.78rem; font-weight: 300; line-height: 1.75; color: rgba(0,0,0,0.68); margin-bottom: 0.6rem; }
+        .feature .img-block { margin-bottom: 0; }
+        .narrow-img { max-width: 560px; margin-left: auto; margin-right: auto; }
+        @media (max-width: 860px) {
+            .persona, .feature { grid-template-columns: 1fr; gap: 1rem; }
+        }
     </style>
 </head>
 <body>
@@ -320,63 +391,225 @@
         <h1 class="project-title">Find Bite</h1>
 
         <p class="project-desc">
-            <i>Find Bite</i> is a UX design case study of an application that helps users find discounted food and groceries nearby. The interface is designed to be intuitive and user-friendly, with features like filtering by food type, map-based navigation, and deal tracking to support budget-conscious users.
+            <i>Find Bite</i> is an affordable dining app, made by a student for students. It brings discounted food from restaurants, grocery stores and surplus inventory into one place, so college students can eat well on a budget while helping reduce food waste.
         </p>
 
         <div class="img-block">
-            <img src="./assets/images/projects/findbite/ux.png" alt="Find Bite overview" />
+            <img src="./assets/images/projects/findbite/case-study/hero.jpg" alt="Find Bite app screens: welcome, store list, deal details and order confirmation" />
         </div>
 
-        <p class="section-label">The Problem</p>
-        <div class="section-text">
-            <p>Finding affordable, decent-quality food is challenging — especially for college students. Many rely on delivery apps that add fees, defeating the purpose of saving money. Meanwhile, stores often sell unsold items at a discount near closing time, but there's no easy way to find these deals. Find Bite bridges that gap.</p>
-        </div>
+        <!-- Research -->
+        <section class="cs-section">
+            <span class="cs-kicker">01 — Research</span>
+            <h2 class="cs-title">User research</h2>
+            <p class="cs-text">I interviewed three college students about how they eat day to day, what they weigh when buying food, how they feel about food waste and how they use existing food apps.</p>
+            <div class="cards">
+            <div class="card-box">
+                <span class="num">01</span>
+                <h3>Price &amp; value</h3>
+                <p>Participants prioritized affordability and were willing to compromise on appearance when food offered better value.</p>
+            </div>
+            <div class="card-box">
+                <span class="num">02</span>
+                <h3>Food waste</h3>
+                <p>Participants were concerned about food waste and were open to buying surplus food that would otherwise be discarded.</p>
+            </div>
+            <div class="card-box">
+                <span class="num">03</span>
+                <h3>Existing services</h3>
+                <p>Participants found existing food apps limited by availability, a lack of discounts and added delivery costs.</p>
+            </div>
+            </div>
+            <div class="img-block narrow-img">
+                <img src="./assets/images/projects/findbite/case-study/research.jpg" alt="Interview questions and answers from three participants on sticky notes" loading="lazy" />
+            </div>
+        </section>
 
-        <div class="img-block">
-            <img src="./assets/images/projects/findbite/logo.jpg" alt="Find Bite logo" />
-        </div>
+        <!-- Persona -->
+        <section class="cs-section">
+            <span class="cs-kicker">02 — Define</span>
+            <h2 class="cs-title">User persona</h2>
+            <div class="persona">
+                <div class="img-block"><img src="./assets/images/projects/findbite/case-study/persona.jpg" alt="Persona card for Jezzy Luxen, a junior-year college student" loading="lazy" /></div>
+                <dl>
+                    <div><dt>Goals</dt><dd>Find affordable, good-quality food while maintaining a healthy and sustainable lifestyle.</dd></div>
+                    <div><dt>Motivations</dt><dd>Save money on food so she can still enjoy eating out, try new foods and spend her limited budget elsewhere.</dd></div>
+                    <div><dt>Pain points</dt><dd>She has a limited food budget, doesn't know where to find good discounts, and finds existing delivery apps too expensive.</dd></div>
+                </dl>
+            </div>
+            <div class="callout">
+                <span>Design opportunity</span>
+                <p>How can we help college students discover affordable food while reducing food waste?</p>
+            </div>
+        </section>
 
-        <p class="section-label">Research</p>
-        <div class="section-text">
-            <p>I observed how college students manage food expenses and conducted user interviews about their frustrations and strategies for finding cheap food.</p>
-            <h4>Common pain points</h4>
-            <ul>
-                <li>No reliable way to find deals in one place</li>
-                <li>Delivery app fees cancel out any savings</li>
-                <li>Unaware of end-of-day restaurant discounts</li>
-            </ul>
-        </div>
+        <!-- Journey -->
+        <section class="cs-section">
+            <span class="cs-kicker">03 — Journey</span>
+            <h2 class="cs-title">Understanding the user journey</h2>
+            <p class="cs-text">Mapping how students currently find cheap food showed three stages, each with its own point of friction.</p>
+            <div class="cards">
+            <div class="card-box">
+                <span class="num">01</span>
+                <h3>Discover</h3>
+                <p>Users search various apps and websites for affordable food.</p>
+                <p class="warn">! Deals are often scattered or outdated.</p>
+            </div>
+            <div class="card-box">
+                <span class="num">02</span>
+                <h3>Evaluate</h3>
+                <p>Users compare price, availability, location and pickup time.</p>
+                <p class="warn">! Deals may sell out before the user arrives.</p>
+            </div>
+            <div class="card-box">
+                <span class="num">03</span>
+                <h3>Pick up</h3>
+                <p>Users travel to pick up the food and judge its quality.</p>
+                <p class="warn">! The food may not meet her expectations.</p>
+            </div>
+            </div>
+            <div class="img-block narrow-img">
+                <img src="./assets/images/projects/findbite/case-study/journey-map.jpg" alt="Empathy map and user journey map" loading="lazy" />
+            </div>
+        </section>
 
-        <div class="img-block">
-            <img src="./assets/images/projects/findbite/User Research.png" alt="User research" />
-        </div>
+        <!-- Opportunities -->
+        <section class="cs-section">
+            <span class="cs-kicker">04 — Opportunities</span>
+            <h2 class="cs-title">Design opportunities</h2>
+            <div class="cards">
+            <div class="card-box">
+                <span class="num">01</span>
+                <h3>Centralized discovery</h3>
+                <p>Bring discounted food into one place instead of requiring users to search multiple platforms.</p>
+            </div>
+            <div class="card-box">
+                <span class="num">02</span>
+                <h3>Reduce uncertainty</h3>
+                <p>Show availability and pickup information before users make the trip.</p>
+            </div>
+            <div class="card-box">
+                <span class="num">03</span>
+                <h3>Speed up discovery</h3>
+                <p>Use location, preferences and filters to help users find relevant deals quickly.</p>
+            </div>
+            </div>
+            <div class="callout">
+                <span>How might we</span>
+                <p>Make affordable surplus food easier to discover and more reliable to purchase?</p>
+            </div>
+        </section>
 
-        <p class="section-label">User Personas</p>
-        <div class="section-text">
-            <ol>
-                <li>A college student with a limited food budget who wants daily access to nearby deals</li>
-                <li>A sustainability-minded user who wants to reduce food waste</li>
-            </ol>
-        </div>
+        <!-- Structure -->
+        <section class="cs-section">
+            <span class="cs-kicker">05 — Structure</span>
+            <h2 class="cs-title">Information architecture</h2>
+            <p class="cs-text">The app's structure follows the journey: sign in, browse nearby deals by location, filter by price, food type, availability and distance, check a deal's details, then check out and receive a QR code for pickup.</p>
+            <div class="img-block">
+                <img src="./assets/images/projects/findbite/case-study/architecture.jpg" alt="Information architecture diagram from landing page through sign-in, browsing, filtering, deal details, checkout and thank-you page" loading="lazy" />
+            </div>
 
-        <div class="img-block">
-            <img src="./assets/images/projects/findbite/User_persona.png" alt="User personas" />
-        </div>
+            <h2 class="cs-title" style="margin-top: 3rem;">Early design</h2>
+            <p class="cs-text">I translated the structure into a low-fidelity user flow: log in, browse, filter, view a deal, check out and pick up. Users browse nearby food in list or map view, filter and compare deals, then reserve one and receive pickup details.</p>
+            <div class="img-block">
+                <img src="./assets/images/projects/findbite/case-study/wireframes.jpg" alt="Low-fidelity wireframes of the user flow" loading="lazy" />
+            </div>
+        </section>
 
-        <p class="section-label">Design</p>
-        <div class="section-text">
-            <p>Starting from wireframes, I prioritized simplicity and intuitive navigation. The home page uses cards for quick scanning; a map view lets users browse deals geographically.</p>
-        </div>
+        <!-- Final design -->
+        <section class="cs-section">
+            <span class="cs-kicker">06 — Final design</span>
+            <h2 class="cs-title">The app</h2>
 
-        <div class="img-block">
-            <img src="./assets/images/projects/findbite/wireframe.jpg" alt="Wireframe" />
+        <div class="feature">
+            <div>
+                <span class="cs-kicker">Landing page</span>
+                <h3>Welcome</h3>
+                <p>The landing screen introduces the brand and leads straight into logging in or signing up.</p>
+            </div>
+            <div class="img-block"><img src="./assets/images/projects/findbite/case-study/landing.jpg" alt="Find Bite landing screen with log in and sign up buttons" loading="lazy" /></div>
         </div>
-
-        <div class="img-block">
-            <img src="./assets/images/projects/findbite/all.png" alt="Style guide" />
+        <div class="feature">
+            <div>
+                <span class="cs-kicker">Log in / sign up</span>
+                <h3>Quick access</h3>
+                <p>Users can sign in or create an account with email, or continue with Google or Facebook, so getting started takes only a moment.</p>
+            </div>
+            <div class="img-block"><img src="./assets/images/projects/findbite/case-study/login.jpg" alt="Log in and create account screens" loading="lazy" /></div>
         </div>
+        <div class="feature">
+            <div>
+                <span class="cs-kicker">Discovering deals</span>
+                <h3>Location-based discovery</h3>
+                <p>Find Bite brings discounted food from restaurants, grocery stores and surplus inventory into one place.</p>
+                <p>The home experience prioritizes nearby options and organizes them by food source, helping users quickly scan and compare available deals.</p>
+            </div>
+            <div class="img-block"><img src="./assets/images/projects/findbite/case-study/discover.jpg" alt="Home screen with category filters, nearby restaurants, grocery stores and surplus items" loading="lazy" /></div>
+        </div>
+        <div class="feature">
+            <div>
+                <span class="cs-kicker">Exploring nearby</span>
+                <h3>Map-based discovery</h3>
+                <p>Because discounted food requires physical pickup, proximity is an important part of deciding whether a deal is worthwhile.</p>
+                <p>The map view lets users explore nearby food options geographically and search within their local area.</p>
+            </div>
+            <div class="img-block"><img src="./assets/images/projects/findbite/case-study/map.jpg" alt="Map view showing nearby stores with a search bar" loading="lazy" /></div>
+        </div>
+        <div class="feature">
+            <div>
+                <span class="cs-kicker">Evaluating deals</span>
+                <h3>Deal details</h3>
+                <p>Once users choose a food provider, they can browse available discounted items, compare prices and build their order.</p>
+                <p>Surprise bags list ingredients and allergens, along with past reviews.</p>
+            </div>
+            <div class="img-block"><img src="./assets/images/projects/findbite/case-study/deal-details.jpg" alt="Store pages for Saxbys and Caffe Nero showing discounted items, allergens and reviews" loading="lazy" /></div>
+        </div>
+        <div class="feature">
+            <div>
+                <span class="cs-kicker">Cart</span>
+                <h3>Building an order</h3>
+                <p>The cart gives users an overview of their selected items before moving into checkout, with clear prices, an order summary and an obvious next step.</p>
+            </div>
+            <div class="img-block"><img src="./assets/images/projects/findbite/case-study/cart.jpg" alt="Cart screen with items and subtotal" loading="lazy" /></div>
+        </div>
+        <div class="feature">
+            <div>
+                <span class="cs-kicker">Check out</span>
+                <h3>Checkout with context</h3>
+                <p>Since Find Bite requires physical pickup, checkout communicates more than payment. Users review their order alongside a map of the vendor, its exact location and an estimated pickup time before committing.</p>
+            </div>
+            <div class="img-block"><img src="./assets/images/projects/findbite/case-study/checkout.jpg" alt="Checkout screen with vendor map, location, distance, pickup time and order summary" loading="lazy" /></div>
+        </div>
+        <div class="feature">
+            <div>
+                <span class="cs-kicker">Order confirmed</span>
+                <h3>Pickup confirmation</h3>
+                <p>After checkout, the experience shifts from purchasing to completing the physical pickup, with a QR code to show at the store.</p>
+            </div>
+            <div class="img-block"><img src="./assets/images/projects/findbite/case-study/confirmed.jpg" alt="Order confirmation screen with pickup QR code" loading="lazy" /></div>
+        </div>
+        </section>
 
-        <p class="section-label">Prototype</p>
+        <!-- Testing -->
+        <section class="cs-section">
+            <span class="cs-kicker">07 — Testing</span>
+            <h2 class="cs-title">Usability testing</h2>
+            <p class="cs-text">I tested the prototype with 3 participants, each completing 3 tasks.</p>
+            <div class="persona">
+                <div class="img-block"><img src="./assets/images/projects/findbite/case-study/usability.jpg" alt="Usability testing notes and results summary" loading="lazy" /></div>
+                <dl>
+                    <div><dt>01 — Discovery needed more clarity</dt><dd>Participants found it unclear how the different types of deals were organized.</dd></div>
+                    <div><dt>02 — Location wasn't visible enough</dt><dd>One participant couldn't easily tell how close the stores were from the home page.</dd></div>
+                    <div><dt>03 — Search + map caused confusion</dt><dd>Participants had difficulty understanding the relationship between search/browse and the map view.</dd></div>
+                    <div><dt>04 — Checkout was straightforward</dt><dd>Participants were able to add items and proceed through checkout with little difficulty.</dd></div>
+                </dl>
+            </div>
+        </section>
+
+        <!-- Prototype -->
+        <section class="cs-section">
+            <span class="cs-kicker">08 — Prototype</span>
+            <h2 class="cs-title">Try the prototype</h2>
         <div class="embed-block">
             <iframe
                     style="border: none;"
@@ -386,9 +619,19 @@
                     allowfullscreen>
             </iframe>
         </div>
+        </section>
 
     </main>
 </div>
 
+<nav class="project-nav">
+    <a href="./breadandbutter.html">
+        ← <div><span class="nav-label">Previous</span><span class="nav-title">Central Pattana: Bread &amp; Butter</span></div>
+    </a>
+    <span class="spacer"></span>
+    <a href="./artbeyondbars.html">
+        <div style="text-align:right"><span class="nav-label">Next</span><span class="nav-title">Art Beyond Bars</span></div> →
+    </a>
+</nav>
 </body>
 </html>

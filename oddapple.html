@@ -229,6 +229,25 @@
 
         .img-row-3 .img-block { margin-bottom: 0; }
 
+        /* Keep images at a comfortable size; the opening installation shot stays full width */
+        .notes-col > .img-block:not(:first-of-type),
+        .notes-col > .img-row {
+            max-width: 760px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .poster { max-width: 440px; margin: 0 auto 3rem; }
+        .poster + .pull-quote { margin: 0 auto 3rem; }
+        .poster .img-block { margin-bottom: 0.75rem; }
+        .poster figcaption {
+            font-size: 0.6rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-align: center;
+        }
+
         /* pull quote */
         .pull-quote {
             font-size: 1rem;
@@ -322,34 +341,45 @@
 
         <p class="section-label">Posters — Body Functionality Series</p>
         <p class="project-desc" style="margin-bottom:1.5rem;">
-            Four posters celebrating what the body does — lungs that breathe, a heart that beats, a brain that thinks, a stomach that digests. Each organ is paired with fruit motifs and set in Fractal Stem.
+            Four posters celebrating what the body does — a stomach that digests, lungs that breathe, a brain that thinks, a heart that beats. Each organ is paired with fruit motifs and set in Fractal Stem.
         </p>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-bottom:1.5rem;align-items:start;">
-            <div>
-                <img src="./assets/images/projects/oddapples/tummy_poster.jpg" alt="Tummy poster" style="width:90%;display:block;border:1px solid #0a0a0a;" />
+        <figure class="poster">
+            <div class="img-block">
+                <img src="./assets/images/projects/oddapples/tummy_poster.jpg" alt="Stomach poster" />
             </div>
-            <div>
-                <img src="./assets/images/projects/oddapples/lung_poster.jpg" alt="Lung poster" style="width:90%;display:block;border:1px solid #0a0a0a;" />
-            </div>
-            <div>
-                <img src="./assets/images/projects/oddapples/heart_poster.jpg" alt="Heart poster" style="width:90%;display:block;border:1px solid #0a0a0a;" />
-            </div>
-            <div>
-                <img src="./assets/images/projects/oddapples/brain_poster.jpg" alt="Brain poster" style="width:90%;display:block;border:1px solid #0a0a0a;" />
-            </div>
-        </div>
+            <figcaption>Stomach — the body digests</figcaption>
+        </figure>
 
-        <p class="section-label">Concept</p>
+        <figure class="poster">
+            <div class="img-block">
+                <img src="./assets/images/projects/oddapples/lung_poster.jpg" alt="Lung poster" />
+            </div>
+            <figcaption>Lungs — the body breathes</figcaption>
+        </figure>
+
         <p class="pull-quote">
             "By reframing fruit through both function and form, Odd Apples encourages a more grounded kind of body positivity — one that values what the body does, not just how it looks."
         </p>
 
+        <figure class="poster">
+            <div class="img-block">
+                <img src="./assets/images/projects/oddapples/brain_poster.jpg" alt="Brain poster" />
+            </div>
+            <figcaption>Brain — the body thinks</figcaption>
+        </figure>
+
+        <figure class="poster">
+            <div class="img-block">
+                <img src="./assets/images/projects/oddapples/heart_poster.jpg" alt="Heart poster" />
+            </div>
+            <figcaption>Heart — the body beats</figcaption>
+        </figure>
+
+        <p class="section-label">Photography</p>
         <div class="img-block">
             <img src="./assets/images/projects/oddapples/fruits.jpg" alt="Fruits carved into geometric forms" />
         </div>
-
-        <p class="section-label">Photography</p>
         <div class="img-block">
             <img src="./assets/images/projects/oddapples/apple.jpg" alt="Apple pieces" />
         </div>
@@ -407,8 +437,8 @@
         ← <div><span class="nav-label">Previous</span><span class="nav-title">Sight of Sound</span></div>
     </a>
     <span class="spacer"></span>
-    <a href="./artbeyondbars.html">
-        <div style="text-align:right"><span class="nav-label">Next</span><span class="nav-title">Art Beyond Bars</span></div> →
+    <a href="./howtoinvertcucumber.html">
+        <div style="text-align:right"><span class="nav-label">Next</span><span class="nav-title">Thoughts on Thesis</span></div> →
     </a>
 </nav>
 </body>
